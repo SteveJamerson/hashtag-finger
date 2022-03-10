@@ -1,5 +1,7 @@
+import Input from './components/Atoms/Input'
+
 function App() {
-   return <div></div>
+   return <Input title="Nome" />
 }
 
 export default App
