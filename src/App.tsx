@@ -1,7 +1,12 @@
-import Input from './components/Atoms/Input'
+import * as Atoms from './components/Atoms';
 
 function App() {
-   return <Input title="Nome" />
+   return (
+      <>
+         <Atoms.Input title="Teste" variations="primary" />
+         <Atoms.Input variations="secundary" />
+      </>
+   )
 }
 
 export default App
