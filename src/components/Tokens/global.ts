@@ -41,7 +41,7 @@ export default createGlobalStyle`
     font-family: inherit;
     line-height: calc(1rem * 2);
     color: var(--color-body);
-    background-color: var(--white);
+    background-color: #0A1744;
     -webkit-text-size-adjust: 100%;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     overflow-x: hidden;
