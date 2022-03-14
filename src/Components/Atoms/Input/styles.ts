@@ -18,10 +18,10 @@ export const InputElement = styled.input<IInput>`
   height: 40px;
   padding: 24px 16px 0 10px;
   outline: 0;
-  border-bottom: 2px solid #E9E9F0;
+  border-bottom: 2px solid rgba(233, 233, 240, 0.27);
   background: transparent;
   font-size: 16px;
-  opacity: 0.8;
+  
   color: #fff;
 
     ${props => props.variations === 'secundary' && css`
@@ -59,9 +59,9 @@ export const Label = styled.label<ILabel>`
    opacity: 1;
 
    font-size: 16px;
-   padding: 0 12px;
-   color: #999;
-   //color: #fff;
+   padding: 0 12px 0 0;
+   //color: #999;
+   color: #fff;
    pointer-events: none;
 
    position: absolute;
