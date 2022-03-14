@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { IInput } from './interfaces';
 import { Container, InputElement, Label } from './styles'
 
-const Input: React.FC<IInput> = ({ title, variations, ...rest }) => {
+export const Input: React.FC<IInput> = ({ title, variations, ...rest }) => {
 
    const [active, setActive] = useState(false)
 
@@ -37,5 +37,3 @@ const Input: React.FC<IInput> = ({ title, variations, ...rest }) => {
       </>
    )
 }
-
-export default Input
