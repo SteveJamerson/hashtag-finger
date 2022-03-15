@@ -1,7 +1,7 @@
 import React from "react";
-import { Button } from "../../components/atoms";
-import Text from "../../components/atoms/Text";
-import Header from "../../components/Molecules/Header";
+import { Button, Input, Text } from "../../components/atoms";
+import Header from "../../components/molecules/Header";
+import { Hero } from "./style";
 
 const Home = () => {
    return (
@@ -11,11 +11,11 @@ const Home = () => {
                hashtag<b>finder</b>
             </Text>
             <div>
-               <Button iconName="user" iconPosition="start" iconSize={10}>
+               <Button iconName="info" iconPosition="start" iconSize={10}>
                   SOBRE
                </Button>
                <Button
-                  iconName="info"
+                  iconName="user"
                   iconPosition="start"
                   iconSize={10}
                   color="secondary"
@@ -24,6 +24,22 @@ const Home = () => {
                </Button>
             </div>
          </Header>
+         <Hero>
+            <Text component="h2" variant="heading">
+               Encontre hashtags de maneira fácil.
+            </Text>
+            <Text>
+               Digite o que deseja no campo de buscas e confira os resultados do
+               Twitter abaixo
+            </Text>
+            <Input
+               type="text"
+               id="search"
+               variant="fill"
+               icon="search"
+               placeholder="Buscar..."
+            />
+         </Hero>
       </>
    );
 };
