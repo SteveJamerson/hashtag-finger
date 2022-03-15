@@ -4,4 +4,4 @@ export default interface IColumnsTable {
    hasOrdering?: boolean;
    align?: 'center' | 'left' | 'right';
    size?: 'S' | 'M' | 'L' | 'XL';
- }
+}

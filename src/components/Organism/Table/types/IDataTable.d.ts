@@ -2,4 +2,4 @@
 export default interface IDataTable {
    item: any;
    rows: any;
- }
+}

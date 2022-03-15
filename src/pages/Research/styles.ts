@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import Theme from '../../../styles/Theme';
-import BackGround from '../../../assets/table-bg.jpg'
+import BackGround from '../../assets/images/tablet-hero-bg.jpg';
+import Theme from '../../components/tokens/theme';
 
 export const Container = styled.div`
    display: flex;

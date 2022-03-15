@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 import hero from '../../assets/images/hero-bg.jpg';
 import mobile from '../../assets/images/mobile-hero-bg.jpg';
