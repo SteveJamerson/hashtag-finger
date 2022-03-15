@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import Theme from '../../Tokens/theme';
+import Theme from '../../tokens/theme';
 
 interface THProps {
    align?: 'center' | 'left' | 'right';
@@ -174,20 +174,19 @@ export const TD = styled.td<TDProps>`
    ${(props) =>
       props.color === 'white'
          ? css`
-         p {
-            color: #ffffff;
-            font: normal normal normal 24px/84px Montserrat;
-         }
+              p {
+                 color: #ffffff;
+                 font: normal normal normal 24px/84px Montserrat;
+              }
            `
          : css`
-         p {
-            color: ${Theme.colors.textLightBlue};
-            font: normal normal normal 24px/84px Rubik;
-         }
+              p {
+                 color: ${Theme.colors.textLightBlue};
+                 font: normal normal normal 24px/84px Rubik;
+              }
            `}
 
    border-bottom: 1px solid ${Theme.colors.borderTable};
-
 
    text-align-last: ${({ align }) => align || 'left'};
 `;

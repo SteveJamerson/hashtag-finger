@@ -10,7 +10,7 @@ export default function Routing() {
          <Route path="/home" element={<Home />} />
          <Route path="/about" element={<About />} />
          <Route path="/research" element={<Research />} />
-         <Route exact path="/" element={<Login />} />
+         <Route path="/" element={<Login />} />
       </Routes>
    );
 }
