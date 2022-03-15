@@ -1,10 +1,9 @@
-import React from 'react';
+import React from "react";
 
 import { Text, Button } from "../../components/atoms";
-import { Form, Header } from '../../components/molecules'
+import { Form, Header } from "../../components/molecules";
 
-import { Container } from './styles'
-
+import { Container } from "./styles";
 
 const Login: React.FC = () => {
    return (
@@ -23,7 +22,7 @@ const Login: React.FC = () => {
             <Form title="Login" />
          </Container>
       </>
-   )
+   );
 };
 
-export default Login
+export default Login;
