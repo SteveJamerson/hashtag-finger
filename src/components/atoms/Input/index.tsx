@@ -1,39 +1,57 @@
-import React, { useState } from 'react';
-import { IInput } from './interfaces';
-import { Container, InputElement, Label } from './styles'
+import React, { useCallback, useRef, useState } from "react";
+import { Icon } from "../Icon";
 
-export const Input: React.FC<IInput> = ({ title, variations, ...rest }) => {
+import { TextFieldProps } from "./interface";
+import { Component, InputComponent, LabelComponent } from "./style";
 
-   const [active, setActive] = useState(false)
+export const Input: React.FC<TextFieldProps> = ({
+   className,
+   variant = "outline",
+   size = "medium",
+   type = "text",
+   id,
+   label,
+   icon,
+   error,
+   helperText,
+   disabled,
+   value,
+   ...props
+}) => {
+   const inputRef = useRef<HTMLInputElement>(null);
+   const [isField, setIsField] = useState(false);
+   const [isFocused, setIsFocused] = useState(false);
 
-   const [value, setValue] = useState('')
+   const handleInputFocus = useCallback(() => {
+      setIsFocused(true);
+   }, []);
 
-   const handleTextChange = (text: string) => {
-      setValue(text)
-
-      if (text !== '') {
-         setActive(true)
-      } else {
-         setActive(false)
-      }
-   }
-
-   console.log(title)
+   const handleInputBlur = useCallback(() => {
+      setIsFocused(false);
+      setIsField(!!inputRef.current?.value);
+   }, []);
 
    return (
       <>
-         <Container variations={variations}>
-            <InputElement
-               type="text"
-               variations={variations}
-               value={value}
-               onChange={(e) => handleTextChange(e.target.value)}
-               {...rest} />
-
-            {title && <Label isFilled={active} htmlFor="teststds">
-               {title}
-            </Label>}
-         </Container>
+         <Component variant={variant}>
+            {icon && <Icon name={icon}></Icon>}
+            <InputComponent
+               onFocus={handleInputFocus}
+               onBlur={handleInputBlur}
+               type={type}
+               id={id}
+               disabled={disabled}
+               ref={inputRef}
+               variant={variant}
+               defaultValue={value}
+               {...props}
+            ></InputComponent>
+            {label && (
+               <LabelComponent htmlFor={id} focused={isFocused || isField}>
+                  {label}
+               </LabelComponent>
+            )}
+         </Component>
       </>
-   )
-}
+   );
+};

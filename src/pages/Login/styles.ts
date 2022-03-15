@@ -1,13 +1,12 @@
 import styled from 'styled-components';
 import imgHero from '../../assets/images/hero-bg.jpg';
 
-
 export const Container = styled.div`
    position: relative;
    display: flex;
    flex-direction: column;
    align-items: center;
-   justfy-content: center;
+   justify-content: center;
    width: 100%;
    height: 100vh;
    font-family: 'Rubik, sans serif';
