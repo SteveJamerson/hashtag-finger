@@ -28,6 +28,7 @@ export default createGlobalStyle`
     }
     * {
     box-sizing: border-box;
+    font-family: "Rubik", sans-serif;
     }
     html {
     overflow-x:hidden;
@@ -40,11 +41,10 @@ export default createGlobalStyle`
     font-weight: 400;
     font-family: inherit;
     line-height: calc(1rem * 2);
-    color: var(--color-body);
-    background-color: var(--white);
+    color: var(--white);
+    background-color: #1e3e7b;
     -webkit-text-size-adjust: 100%;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-    overflow-x: hidden;
     }
     h6,
     h5,

@@ -1,3 +1,4 @@
-export * from './Button';
-export * from './Text';
-export * from './Icon';
+export * from '../atoms/Text';
+export * from '../atoms/Button';
+export * from '../atoms/Icon';
+export * from '../atoms/Input';
