@@ -46,9 +46,11 @@ export const Input: React.FC<TextFieldProps> = ({
                defaultValue={value}
                {...props}
             ></InputComponent>
-            <LabelComponent htmlFor={id} focused={isFocused}>
-               {label}
-            </LabelComponent>
+            {label && (
+               <LabelComponent htmlFor={id} focused={isFocused || isField}>
+                  {label}
+               </LabelComponent>
+            )}
          </Component>
       </>
    );
