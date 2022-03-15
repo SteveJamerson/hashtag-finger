@@ -12,4 +12,4 @@ const IconsTypes = {
 
 export default IconsTypes;
 
-export type IconName = 'info' | 'user' | 'home' | 'search' | undefined;
+export type IconName = 'info' | 'user' | 'home' | 'search';
