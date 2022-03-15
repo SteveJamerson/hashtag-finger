@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "../../components/atoms";
-import Text from "../../components/atoms/Text";
-import Header from "../../components/Molecules/Header";
+import { Text } from "../../components/atoms";
+import { Header } from "../../components/molecules";
 
 const Home = () => {
    return (

@@ -51,12 +51,12 @@ export const Button = styled.button`
    align-items: center;
    justify-content: center;
 
-   background: rgba(114, 239, 219, 1) 0% 0% no-repeat padding-box;
+   background: rgba(114, 239, 219, 1);
    border-radius: 34px;
 
    font-size: 19px;
    font-family: 'Rubik';
-   font-weight: 400;
+   font-weight: 500;
    letter-spacing: 0.57px;
    color: #0B1741;
    text-transform: uppercase;

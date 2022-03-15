@@ -1,6 +1,6 @@
 import React from 'react';
 import { IForm } from './interfaces';
-import { Input } from '../../atoms'
+import { Input } from '../../../components/atoms'
 import { Container, Title, Button } from './styles'
 
 

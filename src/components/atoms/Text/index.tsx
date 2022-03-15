@@ -3,7 +3,7 @@ import { TextProps } from "./interface";
 
 import { TextComponent } from "./style";
 
-const Text: React.FC<TextProps> = ({
+export const Text: React.FC<TextProps> = ({
    component = "p",
    color = "primary",
    weight,
@@ -28,5 +28,3 @@ const Text: React.FC<TextProps> = ({
       />
    );
 };
-
-export default Text;
