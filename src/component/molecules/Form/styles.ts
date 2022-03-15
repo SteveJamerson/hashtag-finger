@@ -7,7 +7,7 @@ export const Container = styled.div`
    border-radius: 14px;
    padding: 0 48px;
 
-   background: #18326B 0% 0% no-repeat padding-box;
+   background: rgba(23, 31, 107, 0.4);
    backdrop-filter: blur(30px);
    -webkit-backdrop-filter: blur(30px);
 
@@ -20,7 +20,12 @@ export const Container = styled.div`
    }
 
    @media (max-width: 768px) {
-      width: 230px;
+      width: 410px;
+   }
+
+   @media (max-width: 411px) {
+      width: 340px;
+      height: 450px;
    }
 
 `;
@@ -32,10 +37,11 @@ export const Title = styled.h3`
    align-items: center;
    text-align: center;
    margin: 130px 0 75px 0;
-`;
 
-export const ButtonContainer = styled.div`
-   width: 100%;
+   @media (max-width: 411px) {
+      margin: 62px 0 44px 0;
+   }
+
 `;
 
 export const Button = styled.button`

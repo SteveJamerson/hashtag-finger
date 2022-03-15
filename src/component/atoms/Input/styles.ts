@@ -7,8 +7,17 @@ export const Container = styled.div<IInput>`
    min-width: 350px;
    position: relative;
    &:focus-within label {
-      transform: translate(0, 12px) scale(0.75);
+      transform: translate(0, -10px) scale(0.75);
     }
+
+    @media (max-width: 768px) {
+      min-width: 314px;
+    }
+
+    @media (max-width: 411px) {
+      min-width: 252px;
+    }
+
 `;
 
 export const InputElement = styled.input<IInput>`
@@ -42,12 +51,8 @@ export const InputElement = styled.input<IInput>`
          font: normal normal normal 17px/19px Rubik;
       }
 
+
     `}
-
-    @media (max-width: 620px) {
-      width: 351px;
-    }
-
 }
 `;
 
@@ -66,5 +71,5 @@ export const Label = styled.label<ILabel>`
 
    position: absolute;
 
-    transform: ${props => props.isFilled ? 'translate(0, 12px) scale(0.75)' : 'translate(0, 26px) scale(1)'};
+    transform: ${props => props.isFilled ? 'translate(0, -10px) scale(0.75);' : 'translate(0, 5px) scale(1)'};
 `;

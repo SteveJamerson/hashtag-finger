@@ -10,7 +10,9 @@ export const Container = styled.div`
    width: 100%;
    height: 100vh;
    font-family: 'Rubik, sans serif';
-   background: transparent url(${img}) 0% 0% no-repeat padding-box;
+   background: transparent url(${img});
+   background-size: cover;
+   background-position: bottom;
 
    align-items: center;
    justify-content: center;
