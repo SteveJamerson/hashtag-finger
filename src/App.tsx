@@ -1,7 +1,8 @@
 import { Helmet } from "react-helmet";
 import { BrowserRouter as Router } from "react-router-dom";
-import Routing from "./pages/routes";
+
 import GlobalStyle from "./components/Tokens/global";
+import Routing from "./pages/routes";
 
 function App() {
    return (
