@@ -55,3 +55,5 @@ export const Input: React.FC<TextFieldProps> = ({
       </>
    );
 };
+
+export default Input;

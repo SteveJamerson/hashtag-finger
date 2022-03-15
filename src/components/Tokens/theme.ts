@@ -4,6 +4,7 @@ const Theme = {
       lightBlueBackground: '#1E3E7B',
       textLightBlue: '#72EFDB',
       textWhite: '#FFFFFF',
+      borderTable: '#41558E',
    },
    breakPoints: {
       smallMobile: '375px',

@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import Theme from '../../tokens/theme';
+import Theme from '../../Tokens/theme';
 
 interface THProps {
    align?: 'center' | 'left' | 'right';
@@ -94,6 +94,9 @@ export const SubTitle = styled.h1`
    font-size: 40px;
    line-height: 47px;
    align-self: flex-start;
+
+   margin-top: 33px;
+   margin-bottom: 40px;
 `;
 
 export const HeaderDivider = styled.div`
@@ -127,6 +130,8 @@ export const TH = styled.th<THProps>`
                  color: ${Theme.colors.textLightBlue};
               `}
       font-family: 'Rubik', sans-serif;
+      font-weight: bold;
+      margin-top: 56px;
    }
 
    > div {
@@ -169,16 +174,20 @@ export const TD = styled.td<TDProps>`
    ${(props) =>
       props.color === 'white'
          ? css`
-              color: #ffffff;
+         p {
+            color: #ffffff;
+            font: normal normal normal 24px/84px Montserrat;
+         }
            `
          : css`
-              color: ${Theme.colors.textLightBlue};
+         p {
+            color: ${Theme.colors.textLightBlue};
+            font: normal normal normal 24px/84px Rubik;
+         }
            `}
 
-   p {
-      font-family: 'Montserrat', sans-serif;
-      color: #ffffff;
-   }
+   border-bottom: 1px solid ${Theme.colors.borderTable};
+
 
    text-align-last: ${({ align }) => align || 'left'};
 `;
@@ -212,6 +221,7 @@ export const ErroDiv = styled.div`
    background: transparent;
    justify-content: center;
    align-items: center;
+   margin-top: 16px;
 
    color: ${Theme.colors.textLightBlue};
 `;

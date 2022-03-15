@@ -11,6 +11,9 @@ import { Table } from "../../components/organism";
 import { Header } from "../../components/molecules";
 import { Button, Text } from "../../components/atoms";
 
+// Mock
+import dataMock from './dataMock';
+
 const columns: Array<IColumnsTable> = [
    {
       key: "hashtag",
@@ -23,12 +26,14 @@ const columns: Array<IColumnsTable> = [
       value: "Data",
       align: "center",
       size: "M",
+      color: 'blue'
    },
    {
       key: "hour",
       value: "Hora",
       align: "center",
       size: "M",
+      color: 'blue'
    },
 ];
 
@@ -63,23 +68,27 @@ const Research: React.FC<SearchParams> = ({ search }) => {
    }, []);
 
    useEffect(() => {
-      if (data) {
-         const { records } = data;
+      if (dataMock) {
+         const { records } = dataMock;
          const tempData: Array<IDataTable> = [];
          records.forEach((element: Records) => {
-            const [year, month, day] = element.fields.Data.split("-");
+            const dataString = element.fields.Data.toString();
+            const formattedData = dataString.substring(0, 2)+"/"+dataString.substring(2, 4);
+
+            const hourToString = element.createdTime.toString();
+            const formattedHour = hourToString.substring(11, 16);
 
             const rowElement: IDataTable = {
                item: element,
                rows: {
                   hashtag: {
-                     component: <p>{element.fields.Hashtag}</p>,
+                     component: <p>#{element.fields.Hashtag}</p>,
                   },
                   hour: {
-                     component: <p>{element.fields.Data}</p>,
+                     component: <p>{formattedHour}</p>,
                   },
                   date: {
-                     component: <p>{element.fields.Data}</p>,
+                     component: <p>{formattedData}</p>,
                   },
                },
             };
