@@ -1,0 +1,28 @@
+{
+  "files": {
+    "main.js": "/hashtag-finger/static/js/main.b9f08313.js",
+    "static/js/787.dadafd9f.chunk.js": "/hashtag-finger/static/js/787.dadafd9f.chunk.js",
+    "static/media/hero-bg.jpg": "/hashtag-finger/static/media/hero-bg.7387f69561a3fdebe1d8.jpg",
+    "static/media/mobile-hero-bg.jpg": "/hashtag-finger/static/media/mobile-hero-bg.947a315ff03c5172344e.jpg",
+    "static/media/steveJamerson.jpg": "/hashtag-finger/static/media/steveJamerson.83188b02d410b1ef46f5.jpg",
+    "static/media/about-hero-bg.jpg": "/hashtag-finger/static/media/about-hero-bg.6e1da22ba412a8f5dc98.jpg",
+    "static/media/table-bg.jpg": "/hashtag-finger/static/media/table-bg.487eb9906537771da798.jpg",
+    "static/media/danielleIzawa.jpg": "/hashtag-finger/static/media/danielleIzawa.579d688f482ce18a699c.jpg",
+    "static/media/rafaelBorges.jpg": "/hashtag-finger/static/media/rafaelBorges.3e8ada797e4e6b77f1bb.jpg",
+    "static/media/brunoAlarcao.jpg": "/hashtag-finger/static/media/brunoAlarcao.71d4af34aba53d6804ac.jpg",
+    "static/media/about-ilustration.svg": "/hashtag-finger/static/media/about-ilustration.4ee1648457bb33273bc8a3e738b9c49b.svg",
+    "static/media/icon-github.svg": "/hashtag-finger/static/media/icon-github.ff2f8d180cb1b01c8445f9f26d3d9d40.svg",
+    "index.html": "/hashtag-finger/index.html",
+    "static/media/icon-envelope.svg": "/hashtag-finger/static/media/icon-envelope.1cf89e54143a8a914422fe6525ad2306.svg",
+    "static/media/home.svg": "/hashtag-finger/static/media/home.103e9249c7f181777ad391116da36dab.svg",
+    "static/media/icon-awesome-linkedin.svg": "/hashtag-finger/static/media/icon-awesome-linkedin.80d2dd9dd04d925b08482f623e073e0a.svg",
+    "static/media/search.svg": "/hashtag-finger/static/media/search.ef21a5ef59b9a937c6a19e1c0f199602.svg",
+    "static/media/info.svg": "/hashtag-finger/static/media/info.ae87f5d38791566c38449ef469319338.svg",
+    "static/media/user.svg": "/hashtag-finger/static/media/user.a3efe7339d68bc1d08a962728e03e904.svg",
+    "main.b9f08313.js.map": "/hashtag-finger/static/js/main.b9f08313.js.map",
+    "787.dadafd9f.chunk.js.map": "/hashtag-finger/static/js/787.dadafd9f.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.b9f08313.js"
+  ]
+}
