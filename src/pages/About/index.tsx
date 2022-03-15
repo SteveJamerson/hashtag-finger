@@ -8,12 +8,13 @@ import photoBruno from '../../assets/photo/brunoAlarcao.jpg'
 import photoDanielle from '../../assets/photo/danielleIzawa.jpg'
 import photoRafael from '../../assets/photo/rafaelBorges.jpg'
 import photoSteve from '../../assets/photo/steveJamerson.jpg'
-import { ContainerBottom, Containertop, Container, Card, ContainerCard, ContainerCardIcons, ContainerCardPhoto, ContainerCardSubTitle, ContainerCardText, ContainerText, Image, SubTitle, Text, Title } from "./style"
+import Home from "../Home/Home";
+import { Card, Container, ContainerBottom, ContainerCard, ContainerCardIcons, ContainerCardPhoto, ContainerCardSubTitle, ContainerCardText, ContainerText, Containertop, Image, SubTitle, Text, Title } from "./style"
 
 const About: React.FC = () => {
   return (
    <Container>
-      
+      <Home />
    <Containertop>
    <ContainerText>
       <Title >Sobre o projeto</Title>

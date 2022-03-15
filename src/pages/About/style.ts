@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+
 import image from '../../assets/about-hero-bg.jpg'
 
 export const Container = styled.div`
@@ -78,7 +79,7 @@ export const SubTitle = styled.h2`
    font-weight: bolder;
    font-size: 54px;
    color: white;
-   padding: 5% 11%;
+   padding: 5% 2%;
 
    @media (max-width: 414px) {
       font-size: 27px;
@@ -103,7 +104,7 @@ export const ContainerCard = styled.div`
    width: 100%;
    text-align: center;
    justify-content: space-between;
-   padding: 33px;
+   padding: 33px 200px;
 
    background: rgba(10, 23, 68, 1) 0% 0% no-repeat padding-box;
    opacity: 1;
@@ -118,6 +119,7 @@ export const ContainerCard = styled.div`
    @media (max-width: 414px) {
       flex-direction: column;
       gap: 40px;
+      padding: 33px;
    }
 `
 
