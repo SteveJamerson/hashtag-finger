@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 import hero from '../../assets/images/hero-bg.jpg';
 import mobile from '../../assets/images/mobile-hero-bg.jpg';
-import tablet from '../../assets/images/tablet-hero-bg.jpg';
 
 export const Hero = styled.div<any>`
    display: flex;
@@ -30,7 +29,7 @@ export const Hero = styled.div<any>`
 
    @media (min-width: 767px) {
       padding: 5rem;
-      background-image: url(${tablet});
+      background-image: url(${hero});
       background-position: center right;
       min-height: initial;
 

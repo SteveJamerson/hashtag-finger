@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import BackGround from '../../assets/images/tablet-hero-bg.jpg';
+import BackGround from '../../assets/images/table-bg.jpg';
 import Theme from '../../components/tokens/theme';
 
 export const Container = styled.div`
