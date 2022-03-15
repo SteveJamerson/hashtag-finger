@@ -28,3 +28,5 @@ export const Text: React.FC<TextProps> = ({
       />
    );
 };
+
+export default Text;

@@ -36,7 +36,7 @@ const Home = () => {
                type="text"
                id="search"
                variant="fill"
-               icon="search"
+               icon={undefined}
                placeholder="Buscar..."
             />
          </Hero>

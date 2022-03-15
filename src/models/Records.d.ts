@@ -3,7 +3,7 @@ export default interface Records {
       fields: {
          Squad: string;
          Hashtag: string;
-         Data: string;
+         Data: number;
       },
       createdTime: string;
 }

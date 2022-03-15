@@ -1,9 +1,6 @@
 /* eslint-disable react/no-array-index-key */
 import React, { forwardRef } from "react";
 
-// Components
-import TableSkeleton from "./Skeleton/TableSkeleton";
-
 // Types
 import IColumnsTable from "./types/IColumnsTable";
 import IDataTable from "./types/IDataTable";
@@ -71,6 +68,7 @@ export const Table = forwardRef<RefProps, TableProps>(
                                           key={`row_by_column_${column.key}`}
                                           align={column.align || undefined}
                                           size={column.size || undefined}
+                                          color={column.color || 'white'}
                                        >
                                           {getRowByColumn(row.rows, column.key)}
                                        </TD>
@@ -98,3 +96,5 @@ export const Table = forwardRef<RefProps, TableProps>(
       );
    }
 );
+
+export default Table;
