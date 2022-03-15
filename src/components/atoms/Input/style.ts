@@ -60,8 +60,15 @@ export const InputComponent = styled.input<TextFieldProps>`
    ${(props) =>
       props.variant === 'outline' &&
       css`
-         border: 0px solid #e9e9f0;
-         border-bottom-width: 1px;
+         border: 0px solid #e9e9f040;
+         border-bottom-width: 2px;
+         font-size: 16px;
+         color: #72efdb;
+
+         & + label {
+            left: 0.5rem;
+            font-size: 16px;
+         }
       `}
    ${(props) =>
       props.variant === 'fill' &&
@@ -75,7 +82,7 @@ export const InputComponent = styled.input<TextFieldProps>`
          backdrop-filter: blur(30px);
          max-width: 1000px;
 
-         &::placeholder {
+         & + {
             color: #8d9da2;
             font-size: 16px;
             font-weight: 500;
@@ -97,6 +104,6 @@ export const LabelComponent = styled.label<
    pointer-events: none;
    transform: ${(props) =>
       props.focused
-         ? 'translate(0, -.75rem) scale(0.75)'
+         ? 'translate(-.5rem, -.75rem) scale(0.75)'
          : 'translate(0, .5rem) scale(1)'};
 `;
