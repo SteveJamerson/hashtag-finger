@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Input, Text } from "../../components/atoms";
 import { Hero } from "./style";
-import { Footer, Header, Tab } from "../../components/molecules";
+import { Footer, Header, Tab, Tabs } from "../../components/molecules";
 
 const Home = () => {
    return (
@@ -40,9 +40,14 @@ const Home = () => {
                placeholder="Buscar..."
             />
          </Hero>
-         <Tab>
-            <div></div>
-         </Tab>
+         <Tabs
+            style={{ background: "#0A1744" }}
+            id="tab"
+            names={["Tweets", "Imagens"]}
+         >
+            <Tab>TWEETS</Tab>
+            <Tab>IMAGES</Tab>
+         </Tabs>
          <Footer>
             <Text>
                @Cocreare {new Date().getFullYear()}. Todos os direitos

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const Component = styled.header`
    position: sticky;
    top: 0;
+   z-index: 1200;
    display: flex;
    font-size: 16px;
    align-items: center;
