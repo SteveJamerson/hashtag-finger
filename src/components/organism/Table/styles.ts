@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import Theme from '../../Tokens/theme';
+import Theme from '../../tokens/theme';
 
 interface THProps {
    align?: 'center' | 'left' | 'right';
