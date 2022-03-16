@@ -43,7 +43,7 @@ export const Container = styled.div`
    display: flex;
    flex-direction: column;
 
-   width: 1553px;
+   width: 80%;
 
    align-self: center;
 
@@ -53,6 +53,8 @@ export const Container = styled.div`
    table {
       border-spacing: 0px;
       width: 100%;
+      background-color: ${Theme.colors.tableResultBackground};
+      opacity: 0.82;
 
       thead tr {
          height: 106px;
@@ -81,6 +83,12 @@ export const Container = styled.div`
          /* td:last-child {
         padding-right: 20px;
       } */
+      }
+
+      tbody tr:last-child {
+         td {
+            border-bottom: none;
+         }
       }
    }
 
@@ -174,20 +182,19 @@ export const TD = styled.td<TDProps>`
    ${(props) =>
       props.color === 'white'
          ? css`
-         p {
-            color: #ffffff;
-            font: normal normal normal 24px/84px Montserrat;
-         }
+              p {
+                 color: #ffffff;
+                 font: normal normal normal 24px/84px Montserrat;
+              }
            `
          : css`
-         p {
-            color: ${Theme.colors.textLightBlue};
-            font: normal normal normal 24px/84px Rubik;
-         }
+              p {
+                 color: ${Theme.colors.textLightBlue};
+                 font: normal normal normal 24px/84px Rubik;
+              }
            `}
 
    border-bottom: 1px solid ${Theme.colors.borderTable};
-
 
    text-align-last: ${({ align }) => align || 'left'};
 `;
@@ -222,6 +229,9 @@ export const ErroDiv = styled.div`
    justify-content: center;
    align-items: center;
    margin-top: 16px;
+
+   background-color: ${Theme.colors.tableResultBackground};
+   opacity: 0.82;
 
    color: ${Theme.colors.textLightBlue};
 `;
