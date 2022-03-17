@@ -62,7 +62,9 @@ export const ImageComponent = styled.div<CardProps>`
          grid-area: media;
          img {
             height: 70px;
+            aspect-ratio: 1;
             border-radius: 10rem;
+            object-fit: cover;
          }
       `}
 

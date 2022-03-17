@@ -26,7 +26,7 @@ export const Card: React.FC<CardProps> = ({
       <CardComponent background={background} variant={variant} {...props}>
          {image && (
             <ImageComponent variant={variant}>
-               <img src={image} alt="" />
+               <img loading="lazy" src={image} alt="" />
             </ImageComponent>
          )}
          {title && (

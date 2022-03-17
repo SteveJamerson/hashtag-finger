@@ -1,12 +1,22 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState } from "react";
+import React, { Children, ReactElement, useState } from "react";
 import { Text } from "../../atoms";
 import { NavTabProps } from "./interface";
 import { Component, NavComponent, TabComponent } from "./style";
 
+const compare = (a: number, b: number) => {
+   if (a < b) {
+      return -1;
+   }
+   if (a > b) {
+      return 1;
+   }
+   return 0;
+};
+
 const NavTab: React.FC<NavTabProps> = ({
    id,
-   names,
+   config,
    active,
    children,
    ...props
@@ -16,11 +26,13 @@ const NavTab: React.FC<NavTabProps> = ({
    return (
       <NavComponent active={active + 1} {...props}>
          <ul>
-            {names?.map((n, i) => (
-               <li key={i} onClick={() => trigger(i)}>
-                  <Text weight="bold">{n}</Text>
-               </li>
-            ))}
+            {config
+               ?.sort((a, b) => compare(a.order, b.order))
+               .map((n, i) => (
+                  <li key={i} onClick={() => trigger(n.order)}>
+                     <Text weight="bold">{n.name}</Text>
+                  </li>
+               ))}
          </ul>
       </NavComponent>
    );
@@ -33,7 +45,7 @@ export const Tab: React.FC<any> = ({ id, children, ...props }) => {
 export const Tabs: React.FC<any> = ({
    id,
    actived = 0,
-   names,
+   config,
    children,
    ...props
 }) => {
@@ -45,13 +57,13 @@ export const Tabs: React.FC<any> = ({
       <Component {...props}>
          <NavTab
             id={id}
-            names={names}
+            config={config}
             active={activeTab}
             actived={handleActive}
          />
 
          {React.Children.map(children, (element, i) => {
-            if (activeTab !== i) return;
+            if (activeTab !== element.props.order) return;
             return element;
          })}
       </Component>

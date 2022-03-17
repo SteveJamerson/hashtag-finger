@@ -1,6 +1,10 @@
+interface TabsConfig {
+   name: string;
+   order: number;
+}
 export interface TabsProps {
    id: string;
-   names: string[];
+   config: TabsConfig[];
    show?: string;
    active: number;
 }
