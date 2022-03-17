@@ -11,7 +11,7 @@ export const NavComponent = styled.div<{ active: number | undefined }>`
 
       list-style: none;
       padding: 0;
-      margin: 0;
+      margin: 0 1rem;
 
       border: 0px solid #e9e9f040;
       border-bottom-width: 2px;
@@ -49,4 +49,7 @@ export const NavComponent = styled.div<{ active: number | undefined }>`
    }
 `;
 
-export const TabComponent = styled.div``;
+export const TabComponent = styled.div`
+   display: inline-block;
+   width: 100%;
+`;
