@@ -1,10 +1,30 @@
 import React from "react";
-import { Box, Button, Input, Text } from "../../components/atoms";
-import { Hero } from "./style";
+import { Button, Input, Text } from "../../components/atoms";
+import { Hero, TabImages } from "./style";
 import { Footer, Header, Tab, Tabs, Card } from "../../components/molecules";
-import photoSteve from "../../assets/photo/steveJamerson.jpg";
+import { CardProps } from "../../components/molecules/Card/interface";
 
 const Home = () => {
+   const tweets: CardProps[] = [...Array(10).keys()].map((i: number) => {
+      return {
+         variant: "horizontal",
+         title: "Username",
+         subtitle: "@twitterusername",
+         text: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat...",
+         link: [{ text: "Ver mais no Twitter", href: "#" }],
+         image: require(`../../assets/mock/person-${i + 1}.jpg`),
+      };
+   });
+
+   const images: CardProps[] = [...Array(10).keys()].map((i: number) => {
+      return {
+         variant: "image",
+         title: "Postado por:",
+         subtitle: "@twitterusername",
+         background: require(`../../assets/mock/paisagem-${(i % 5) + 1}.jpg`),
+      };
+   });
+
    return (
       <>
          <Header component="nav">
@@ -44,53 +64,48 @@ const Home = () => {
          <Tabs
             style={{ background: "#0A1744" }}
             id="tab"
-            names={["Tweets", "Imagens", "Test"]}
+            config={[
+               {
+                  name: "Imagens",
+                  order: 1,
+               },
+               {
+                  name: "Tweets",
+                  order: 0,
+               },
+            ]}
          >
-            <Tab>
-               <Box margin="1rem">
-                  <Card
-                     title="Username"
-                     subtitle="@twitterusername"
-                     text="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat..."
-                     variant="horizontal"
-                     link={[{ text: "Ver mais no Twitter", href: "#" }]}
-                     image={photoSteve}
-                  />
-               </Box>
+            <Tab order={0}>
+               {tweets.map(
+                  (
+                     { variant, title, subtitle, text, link, image },
+                     i: number
+                  ) => (
+                     <Card
+                        key={i}
+                        title={title}
+                        subtitle={subtitle}
+                        text={text}
+                        variant={variant}
+                        link={link}
+                        image={image}
+                     />
+                  )
+               )}
             </Tab>
-            <Tab>
-               <Box margin="1rem">
-                  <Card
-                     title="Postado por:"
-                     subtitle="@twitterusername"
-                     variant="image"
-                     background={photoSteve}
-                  />
-               </Box>
-               <Box margin="1rem">
-                  <Card
-                     title="Postado por:"
-                     subtitle="@twitterusername"
-                     variant="image"
-                     background={photoSteve}
-                  />
-               </Box>
-            </Tab>
-            <Tab>
-               <Box margin="1rem">
-                  <Card
-                     title="Username"
-                     subtitle="@twitterusername"
-                     text="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat..."
-                     variant="vertical"
-                     link={[
-                        { icon: "github", href: "#" },
-                        { icon: "linkedin", href: "#" },
-                     ]}
-                     image={photoSteve}
-                  />
-               </Box>
-            </Tab>
+            <TabImages order={1}>
+               {images.map(
+                  ({ variant, title, subtitle, background }, i: number) => (
+                     <Card
+                        key={i}
+                        title={title}
+                        subtitle={subtitle}
+                        variant={variant}
+                        background={background}
+                     />
+                  )
+               )}
+            </TabImages>
          </Tabs>
          <Footer>
             <Text>

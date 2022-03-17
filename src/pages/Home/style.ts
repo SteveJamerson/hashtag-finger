@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 import hero from '../../assets/images/hero-bg.jpg';
 import mobile from '../../assets/images/mobile-hero-bg.jpg';
+import { Tab } from '../../components/molecules';
 
 export const Hero = styled.div<any>`
    display: flex;
@@ -45,5 +46,17 @@ export const Hero = styled.div<any>`
 
    @media (min-width: 992px) {
       background-image: url(${hero});
+   }
+`;
+
+export const TabImages = styled(Tab)`
+   display: flex;
+   flex-flow: row wrap;
+   gap: 1rem;
+
+   & > * {
+      flex-grow: 1;
+      flex-basis: calc(50% - 1rem);
+      margin: 0;
    }
 `;
