@@ -1,10 +1,11 @@
 const Theme = {
    colors: {
-      darkBlueHeader: '#18326B',
+      darkBlueHeader: '#000F63',
       lightBlueBackground: '#1E3E7B',
       textLightBlue: '#72EFDB',
       textWhite: '#FFFFFF',
       borderTable: '#41558E',
+      tableResultBackground: '#00236B'
    },
    breakPoints: {
       smallMobile: '375px',
