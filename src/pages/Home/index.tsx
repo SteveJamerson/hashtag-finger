@@ -1,7 +1,8 @@
 import React from "react";
-import { Button, Input, Text } from "../../components/atoms";
+import { Box, Button, Input, Text } from "../../components/atoms";
 import { Hero } from "./style";
-import { Footer, Header, Tab, Tabs } from "../../components/molecules";
+import { Footer, Header, Tab, Tabs, Card } from "../../components/molecules";
+import photoSteve from "../../assets/photo/steveJamerson.jpg";
 
 const Home = () => {
    return (
@@ -43,10 +44,53 @@ const Home = () => {
          <Tabs
             style={{ background: "#0A1744" }}
             id="tab"
-            names={["Tweets", "Imagens"]}
+            names={["Tweets", "Imagens", "Test"]}
          >
-            <Tab>TWEETS</Tab>
-            <Tab>IMAGES</Tab>
+            <Tab>
+               <Box margin="1rem">
+                  <Card
+                     title="Username"
+                     subtitle="@twitterusername"
+                     text="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat..."
+                     variant="horizontal"
+                     link={[{ text: "Ver mais no Twitter", href: "#" }]}
+                     image={photoSteve}
+                  />
+               </Box>
+            </Tab>
+            <Tab>
+               <Box margin="1rem">
+                  <Card
+                     title="Postado por:"
+                     subtitle="@twitterusername"
+                     variant="image"
+                     background={photoSteve}
+                  />
+               </Box>
+               <Box margin="1rem">
+                  <Card
+                     title="Postado por:"
+                     subtitle="@twitterusername"
+                     variant="image"
+                     background={photoSteve}
+                  />
+               </Box>
+            </Tab>
+            <Tab>
+               <Box margin="1rem">
+                  <Card
+                     title="Username"
+                     subtitle="@twitterusername"
+                     text="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat..."
+                     variant="vertical"
+                     link={[
+                        { icon: "github", href: "#" },
+                        { icon: "linkedin", href: "#" },
+                     ]}
+                     image={photoSteve}
+                  />
+               </Box>
+            </Tab>
          </Tabs>
          <Footer>
             <Text>
