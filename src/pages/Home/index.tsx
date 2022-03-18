@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Input, Text } from "../../components/atoms";
-import { Hero, TabImages } from "./style";
+import { Hero, TabContainer, TabImages, TabsCustom, TabTweets } from "./style";
 import { Footer, Header, Tab, Tabs, Card } from "../../components/molecules";
 import { CardProps } from "../../components/molecules/Card/interface";
 
@@ -22,6 +22,14 @@ const Home = () => {
          title: "Postado por:",
          subtitle: "@twitterusername",
          background: require(`../../assets/mock/paisagem-${(i % 5) + 1}.jpg`),
+      };
+   });
+
+   const responsiveTabs = 767;
+   const [responsiveTab, setResponsiveTab] = useState(!!responsiveTabs);
+   useEffect(() => {
+      window.onresize = () => {
+         setResponsiveTab(window.innerWidth > responsiveTabs);
       };
    });
 
@@ -61,52 +69,58 @@ const Home = () => {
                placeholder="Buscar..."
             />
          </Hero>
-         <Tabs
-            style={{ background: "#0A1744" }}
-            id="tab"
-            config={[
-               {
-                  name: "Imagens",
-                  order: 1,
-               },
-               {
-                  name: "Tweets",
-                  order: 0,
-               },
-            ]}
-         >
-            <Tab order={0}>
-               {tweets.map(
-                  (
-                     { variant, title, subtitle, text, link, image },
-                     i: number
-                  ) => (
-                     <Card
-                        key={i}
-                        title={title}
-                        subtitle={subtitle}
-                        text={text}
-                        variant={variant}
-                        link={link}
-                        image={image}
-                     />
-                  )
-               )}
-            </Tab>
-            <TabImages order={1}>
-               {images.map(
-                  ({ variant, title, subtitle, background }, i: number) => (
-                     <Card
-                        key={i}
-                        title={title}
-                        subtitle={subtitle}
-                        variant={variant}
-                        background={background}
-                     />
-                  )
-               )}
-            </TabImages>
-         </Tabs>
+         <TabContainer>
+            <Text size="1.5rem" align="center" margin="0 0 2rem 0">
+               Exibindo os 10 resultados mais recentes para #natureza
+            </Text>
+            <TabsCustom
+               active={0}
+               id="tab"
+               config={[
+                  {
+                     name: "Imagens",
+                     order: 1,
+                  },
+                  {
+                     name: "Tweets",
+                     order: 0,
+                  },
+               ]}
+               responsive={responsiveTab}
+            >
+               <TabImages order={1}>
+                  {images.map(
+                     ({ variant, title, subtitle, background }, i: number) => (
+                        <Card
+                           key={i}
+                           title={title}
+                           subtitle={subtitle}
+                           variant={variant}
+                           background={background}
+                        />
+                     )
+                  )}
+               </TabImages>
+               <TabTweets order={0}>
+                  {tweets.map(
+                     (
+                        { variant, title, subtitle, text, link, image },
+                        i: number
+                     ) => (
+                        <Card
+                           key={i}
+                           title={title}
+                           subtitle={subtitle}
+                           text={text}
+                           variant={variant}
+                           link={link}
+                           image={image}
+                        />
+                     )
+                  )}
+               </TabTweets>
+            </TabsCustom>
+         </TabContainer>
          <Footer>
             <Text>
                @Cocreare {new Date().getFullYear()}. Todos os direitos

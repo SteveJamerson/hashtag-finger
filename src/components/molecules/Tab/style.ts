@@ -49,11 +49,5 @@ export const NavComponent = styled.div<{ active: number | undefined }>`
 `;
 
 export const TabComponent = styled.div`
-   display: inline-block;
-   width: 100%;
    padding: 1rem;
-
-   & > * {
-      margin: 1rem 0;
-   }
 `;

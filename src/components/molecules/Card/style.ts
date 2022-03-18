@@ -31,8 +31,6 @@ export const CardComponent = styled.div<CardProps>`
          flex-direction: column;
          justify-content: flex-end;
          aspect-ratio: 1;
-         max-width: 50%;
-
          border-radius: 1.5rem;
          background-image: url(${props.background});
          background-repeat: no-repeat;

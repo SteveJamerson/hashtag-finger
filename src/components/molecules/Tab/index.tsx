@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { Children, ReactElement, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Text } from "../../atoms";
-import { NavTabProps } from "./interface";
+import { NavTabProps, TabsProps } from "./interface";
 import { Component, NavComponent, TabComponent } from "./style";
 
 const compare = (a: number, b: number) => {
@@ -21,7 +21,7 @@ const NavTab: React.FC<NavTabProps> = ({
    children,
    ...props
 }) => {
-   const trigger = (index: number) => props.actived(index);
+   const trigger = (index: number) => props.onActive(index);
 
    return (
       <NavComponent active={active + 1} {...props}>
@@ -42,30 +42,35 @@ export const Tab: React.FC<any> = ({ id, children, ...props }) => {
    return <TabComponent {...props}>{children}</TabComponent>;
 };
 
-export const Tabs: React.FC<any> = ({
+export const Tabs: React.FC<TabsProps | any> = ({
    id,
-   actived = 0,
+   active = 0,
    config,
    children,
+   responsive,
    ...props
 }) => {
-   const [activeTab, setActiveTab] = useState(actived);
+   const [activeTab, setActiveTab] = useState(active);
 
    const handleActive = (index: number) => setActiveTab(index);
 
    return (
-      <Component {...props}>
-         <NavTab
-            id={id}
-            config={config}
-            active={activeTab}
-            actived={handleActive}
-         />
+      <>
+         <Component {...props} responsive={responsive}>
+            {!responsive && (
+               <NavTab
+                  id={id}
+                  config={config}
+                  active={activeTab}
+                  onActive={handleActive}
+               />
+            )}
 
-         {React.Children.map(children, (element, i) => {
-            if (activeTab !== element.props.order) return;
-            return element;
-         })}
-      </Component>
+            {React.Children.map(children, (element, i) => {
+               if (activeTab === element.props.order || responsive)
+                  return element;
+            })}
+         </Component>
+      </>
    );
 };

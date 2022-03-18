@@ -5,10 +5,10 @@ interface TabsConfig {
 export interface TabsProps {
    id: string;
    config: TabsConfig[];
-   show?: string;
    active: number;
+   responsive?: boolean;
 }
 
 export interface NavTabProps extends TabsProps {
-   actived: any;
+   onActive: any;
 }
