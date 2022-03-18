@@ -4,9 +4,10 @@ import image from '../../assets/about-ilustration.svg'
 import linkedin from  '../../assets/icon-awesome-linkedin.svg'
 import email from  '../../assets/icon-envelope.svg'
 import github from  '../../assets/icon-github.svg'
-import Home from "../Home/Home";
+import { Button, Text } from "../../components/atoms";
+import { Header } from "../../components/molecules";
 import { CardResponse } from "./interfaces";
-import { Card, Container, ContainerBottom, ContainerCard, ContainerCardIcons, ContainerCardPhoto, ContainerCardSubTitle, ContainerCardText, ContainerText, Containertop, Image, SubTitle, Text, Title } from "./style"
+import { Card, Container, ContainerBottom, ContainerCard, ContainerCardIcons, ContainerCardPhoto, ContainerCardSubTitle, ContainerCardText, ContainerText, Containertop, Image, SubTitle, TextContent, Title } from "./style"
 
 const About: React.FC = () => {
    const [aboutText, setAboutText] = useState('')
@@ -65,12 +66,29 @@ const About: React.FC = () => {
 
   return (
    <Container>
-      <Home />
+       <Header component="nav">
+            <Text component="h2" style={{ margin: 0 }}>
+               hashtag<b>finder</b>
+            </Text>
+            <div>
+               <Button iconName="info" iconPosition="start" iconSize={10}>
+                  SOBRE
+               </Button>
+               <Button
+                  iconName="user"
+                  iconPosition="start"
+                  iconSize={10}
+                  color="secondary"
+               >
+                  LOGIN
+               </Button>
+            </div>
+         </Header>
    <Containertop>
    <ContainerText>
       <Title >Sobre o projeto</Title>
-      <Text>{aboutText}
-</Text>
+      <TextContent>{aboutText}
+</TextContent> 
 
 </ContainerText>
       <Image>
@@ -105,7 +123,7 @@ const About: React.FC = () => {
       </ContainerBottom>   
      
       </Container>
-  );
+   );
 };
 
 export default About;
