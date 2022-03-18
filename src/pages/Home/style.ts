@@ -38,7 +38,6 @@ export const Hero = styled.div<any>`
 
    @media (min-width: 767px) {
       padding: 5rem;
-      background-size: contain;
       background-size: 60%, contain;
 
       h2 {
@@ -53,6 +52,7 @@ export const Hero = styled.div<any>`
 
    @media (min-width: 992px) {
       background-position: center right;
+      background-size: contain;
    }
 `;
 export const TabContainer = styled.div`
