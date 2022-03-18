@@ -8,8 +8,9 @@ export interface TextFieldProps extends AnchorHTMLAttributes<HTMLInputElement> {
    id: string;
    label?: string;
    value?: string | number;
-   error?: boolean;
+   isError?: boolean;
    helperText?: string;
    disabled?: boolean;
    icon?: IconName;
+   name: string;
 }
