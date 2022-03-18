@@ -81,7 +81,6 @@ export default createGlobalStyle`
         --size: var(--font-size-body);
         margin-top: 0;
         margin-bottom: 0.75rem;
-        font-weight: 300;
         line-height: calc(var(--size) * 2);
     }
     a {
