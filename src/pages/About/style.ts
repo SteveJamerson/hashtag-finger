@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 import image from '../../assets/about-hero-bg.jpg';
+import { Text } from '../../components/atoms';
 
 export const Container = styled.div`
    background: transparent url(${image}) 100% 100% no-repeat padding-box;
@@ -44,7 +45,7 @@ export const Title = styled.h1`
       font-size: 33px;
    }
 `;
-export const Text = styled.h2`
+export const TextContent = styled(Text)`
    color: #d9d9d9;
    font-size: 21px;
    margin-top: 40px;
@@ -60,7 +61,7 @@ export const Image = styled.div`
    display: flex;
    align-items: center;
    justify-content: center;
-   margin-top: -510px;
+   margin-top: 100px;
 
    @media (max-width: 414px) {
       margin-top: -200px;
@@ -100,7 +101,7 @@ export const ContainerCard = styled.div`
    width: 100%;
    text-align: center;
    justify-content: space-between;
-   padding: 33px 200px;
+   padding: 0px 200px;
 
    background: rgba(10, 23, 68, 1) 0% 0% no-repeat padding-box;
    opacity: 1;
@@ -108,6 +109,7 @@ export const ContainerCard = styled.div`
    img {
       width: 178px;
       height: 178px;
+      margin-top: 30px;
       border-radius: 50%;
       padding: 0px 0px;
    }
@@ -154,12 +156,14 @@ export const ContainerCardText = styled.div`
 export const ContainerCardIcons = styled.div`
    width: 137px;
    display: flex;
+   justify-content: space-evenly;
    flex-direction: row;
    color: rgba(114, 239, 219, 1);
 
    img {
-      width: 137px;
+      width: 100%;
       height: 27px;
       margin-bottom: 20px;
+      border-radius:0;
    }
 `;

@@ -1,36 +1,72 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
-import image from "../../assets/about-ilustration.svg";
-import linkedin from "../../assets/icon-awesome-linkedin.svg";
-import email from "../../assets/icon-envelope.svg";
-import github from "../../assets/icon-github.svg";
-import photoBruno from "../../assets/photo/brunoAlarcao.jpg";
-import photoDanielle from "../../assets/photo/danielleIzawa.jpg";
-import photoRafael from "../../assets/photo/rafaelBorges.jpg";
-import photoSteve from "../../assets/photo/steveJamerson.jpg";
+import image from '../../assets/about-ilustration.svg'
+import linkedin from  '../../assets/icon-awesome-linkedin.svg'
+import email from  '../../assets/icon-envelope.svg'
+import github from  '../../assets/icon-github.svg'
 import { Button, Text } from "../../components/atoms";
-import { Footer, Header } from "../../components/molecules";
-import {
-   Card,
-   Container,
-   ContainerBottom,
-   ContainerCard,
-   ContainerCardIcons,
-   ContainerCardPhoto,
-   ContainerCardSubTitle,
-   ContainerCardText,
-   ContainerText,
-   Containertop,
-   Image,
-   SubTitle,
-   // Text,
-   Title,
-} from "./style";
+import { Header } from "../../components/molecules";
+import { CardResponse } from "./interfaces";
+import { Card, Container, ContainerBottom, ContainerCard, ContainerCardIcons, ContainerCardPhoto, ContainerCardSubTitle, ContainerCardText, ContainerText, Containertop, Image, SubTitle, TextContent, Title } from "./style"
 
 const About: React.FC = () => {
-   return (
-      <Container>
-         <Header component="nav">
+   const [aboutText, setAboutText] = useState('')
+   const [timeResponse, setTimeResponse] = useState<CardResponse[]>([])
+   const loadAbout = async() => {
+      const environmentAbout = {
+         PATH: "https://api.airtable.com/v0",
+         AUTH: "Bearer key2CwkHb0CKumjuM",
+         KEY: "app6wQWfM6eJngkD4",
+         SQUAD: "zappts_2",
+       };
+
+       const url = `${environmentAbout.PATH}/${environmentAbout.KEY}/Projeto?maxRecords=3&view=Grid%20view`;
+       const headers = new Headers({
+         Authorization: environmentAbout.AUTH,
+         "Content-Type": "application/json",
+       });  
+       const response = await fetch(`${url}&filterByFormula=%7BSquad%7D%20=%20'${environmentAbout.SQUAD}'`, {
+         headers: headers,
+      })
+      const data = await response.json()
+      /* console.log(data) */
+      setAboutText(data.records[0].fields.Sobre)
+   }
+  
+   
+   const loadCard = async() => {
+      const environmentCard = {
+         PATH: "https://api.airtable.com/v0",
+         AUTH: "Bearer key2CwkHb0CKumjuM",
+         KEY: "app6wQWfM6eJngkD4",
+         SQUAD: "zappts_2",
+       };
+
+       const url = `${environmentCard.PATH}/${environmentCard.KEY}/Equipe?view=Grid%20view`;
+       const headers = new Headers({
+         Authorization: environmentCard.AUTH,
+         "Content-Type": "application/json",
+       });  
+       const response = await fetch(`${url}&filterByFormula=%7BSquad%7D%20=%20'${environmentCard.SQUAD}'`, {
+         headers: headers,
+      })
+      const data = await response.json()
+      /* console.log(data) */
+      
+      
+      
+      console.log(data.records)
+      setTimeResponse(data.records)
+   }
+
+   useEffect(() =>{  
+      loadAbout();
+      loadCard();
+   },[])
+
+  return (
+   <Container>
+       <Header component="nav">
             <Text component="h2" style={{ margin: 0 }}>
                hashtag<b>finder</b>
             </Text>
@@ -48,124 +84,44 @@ const About: React.FC = () => {
                </Button>
             </div>
          </Header>
-         <Containertop>
-            <ContainerText>
-               <Title>Sobre o projeto</Title>
-               <Text component="h2">
-                  Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-                  diam nonumy eirmod tempor invidunt ut labore et dolore magna
-                  aliquyam erat, sed diam voluptua. At vero eos et accusam et
-                  justo duo dolores et ea rebum. Stet clita kasd gubergren, no
-                  sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem
-                  ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-                  nonumy eirmod tempor invidunt ut labore et dolore magna
-                  aliquyam erat, sed diam voluptua. At vero eos et accusam et
-                  justo duo dolores et ea rebum. Stet clita kasd gubergren, no
-                  sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem
-                  ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-                  nonumy eirmod tempor invidunt ut labore et dolore magna
-                  aliquyam erat, sed diam voluptua. At vero eos et accusam et
-                  justo duo dolores et ea rebum. Stet clita kasd gubergren, no
-                  sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem
-                  ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-                  nonumy eirmod tempor invidunt ut labore et dolore magna
-                  aliquyam erat, sed diam voluptua. At vero eos et accusam et
-                  justo duo dolores et ea rebum. Stet clita kasd gubergren, no
-                  sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem
-                  ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-                  nonumy eirmod tempor invidunt ut labore et dolore magna
-                  aliquyam erat, sed diam voluptua. At vero eos et accusam et
-                  justo duo dolores et ea rebum. Stet clita kasd gubergren, no
-                  sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem
-                  ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-                  nonumy eirmod tempor invidunt ut labore et dolore magna
-                  aliquyam erat, sedundefined
-               </Text>
-            </ContainerText>
-            <Image>
-               <img src={image} alt="" className="imagem" />
-            </Image>
-         </Containertop>
-         <ContainerBottom>
-            <SubTitle>Quem somos</SubTitle>
-            <ContainerCard>
-               <Card>
-                  <SubTitle />
-                  <ContainerCardPhoto>
-                     <img src={photoBruno} alt="" className="brunoAlarcao" />
-                  </ContainerCardPhoto>
-                  <ContainerCardSubTitle>Bruno Alarcão</ContainerCardSubTitle>
-                  <ContainerCardText>
-                     Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
-                     sed diam nonumy eirmod
-                  </ContainerCardText>
-                  <ContainerCardIcons>
-                     <img src={github} alt="" className="github" />
-                     <img src={email} alt="" className="email" />
-                     <img src={linkedin} alt="" className="linkedin" />
-                  </ContainerCardIcons>
-               </Card>
-               <Card>
-                  <SubTitle />
-                  <ContainerCardPhoto>
-                     <img
-                        src={photoDanielle}
-                        alt=""
-                        className="danielleizawa"
-                     />
-                  </ContainerCardPhoto>
-                  <ContainerCardSubTitle>Danielle Izawa</ContainerCardSubTitle>
-                  <ContainerCardText>
-                     Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
-                     sed diam nonumy eirmod
-                  </ContainerCardText>
-                  <ContainerCardIcons>
-                     <img src={github} alt="" className="github" />
-                     <img src={email} alt="" className="email" />
-                     <img src={linkedin} alt="" className="linkedin" />
-                  </ContainerCardIcons>
-               </Card>
-               <Card>
-                  <SubTitle />
-                  <ContainerCardPhoto>
-                     <img src={photoRafael} alt="" className="rafaelBorges" />
-                  </ContainerCardPhoto>
-                  <ContainerCardSubTitle>Rafael Borges</ContainerCardSubTitle>
-                  <ContainerCardText>
-                     Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
-                     sed diam nonumy eirmod
-                  </ContainerCardText>
-                  <ContainerCardIcons>
-                     <img src={github} alt="" className="github" />
-                     <img src={email} alt="" className="email" />
-                     <img src={linkedin} alt="" className="linkedin" />
-                  </ContainerCardIcons>
-               </Card>
-               <Card>
-                  <SubTitle />
-                  <ContainerCardPhoto>
-                     <img src={photoSteve} alt="" className="steveJamerson" />
-                  </ContainerCardPhoto>
-                  <ContainerCardSubTitle>Steve Jamerson</ContainerCardSubTitle>
-                  <ContainerCardText>
-                     Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
-                     sed diam nonumy eirmod
-                  </ContainerCardText>
-                  <ContainerCardIcons>
-                     <img src={github} alt="" className="github" />
-                     <img src={email} alt="" className="email" />
-                     <img src={linkedin} alt="" className="linkedin" />
-                  </ContainerCardIcons>
-               </Card>
-            </ContainerCard>
-         </ContainerBottom>
+   <Containertop>
+   <ContainerText>
+      <Title >Sobre o projeto</Title>
+      <TextContent>{aboutText}
+</TextContent> 
 
-         <Footer>
-            <Text>
-               @Cocreare {new Date().getFullYear()}. Todos os direitos
-               reservados
-            </Text>
-         </Footer>
+</ContainerText>
+      <Image>
+      <img src={image} alt="" className="imagem" />
+      </Image>
+   </Containertop>
+      <ContainerBottom>
+      <SubTitle>Quem somos</SubTitle>
+      <ContainerCard>
+         {timeResponse.map((person:CardResponse) =>(
+            <Card key={person?.fields?.Nome}>
+            <ContainerCardPhoto >
+               <img src={person?.fields?.Imagem[0]?.url || ''} />         
+            </ ContainerCardPhoto>
+            <ContainerCardSubTitle>{person?.fields?.Nome}</ContainerCardSubTitle>
+            <ContainerCardText>{person?.fields?.Descrição}</ContainerCardText>
+            <ContainerCardIcons>
+               <a href={person?.fields?.Github} >
+                  <img src={github} alt="" className="github"/> 
+               </a>
+               <a href={person?.fields?.Email}>
+                  <img src={email} alt="" className="email" />
+               </a>
+               <a href={person?.fields?.LinkedIn}>
+                   <img src={linkedin} alt="" className="linkedin" />
+               </a>
+            </ContainerCardIcons>
+            <ContainerCard />
+         </Card>
+         ))}
+        </ContainerCard>
+      </ContainerBottom>   
+     
       </Container>
    );
 };
