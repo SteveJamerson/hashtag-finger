@@ -9,15 +9,13 @@ import { Container, Title, Button } from "./styles";
 import getValidationErrors from "../../../utils/getValidationError";
 import api from "../../../services/api";
 import { useAuth } from '../../../hooks/useAuth';
+import { useToast } from '../../../hooks/useToast'
 
 
 export const Form: React.FC<IForm> = (...rest) => {
 
    const { signIn } = useAuth()
-
-   interface SearchParams {
-      search: string;
-   }
+   const { addToast } = useToast()
 
    const formRef = useRef<FormHandles>(null)
 
@@ -26,7 +24,7 @@ export const Form: React.FC<IForm> = (...rest) => {
       password: string,
    }
 
-   const handleCreateUser = useCallback(async (data: LoginFormData) => {
+   const handleCreateUser = async (data: LoginFormData) => {
 
       try {
 
@@ -38,25 +36,43 @@ export const Form: React.FC<IForm> = (...rest) => {
          })
 
          await schema.validate(data, {
-            abortEarly: false, //mostrar todos os erros
+            abortEarly: false,
          })
 
          const { email, password } = data
 
          console.log(data, "digited")
-         signIn(email, password)
 
+         const userFound = signIn(email, password)
+
+         if (!userFound) {
+            addToast({
+               title: 'Erro na autenticação',
+               type: 'error',
+               description: 'Ocorreu um erro ao tentar fazer login, verifique se os dados estão corretos'
+            })
+         } else {
+            addToast({
+               title: 'Autenticação realizada',
+               type: 'success',
+               description: 'Autenticação realizada com sucesso'
+            })
+         }
       } catch (err) {
-         if (err instanceof Yup.ValidationError) { //se o erro vier do validationError (email invalido, sem senha)
+         if (err instanceof Yup.ValidationError) {
             const errors = getValidationErrors(err)
             formRef.current?.setErrors(errors);
+
+            addToast({
+               title: 'Erro na autenticação',
+               type: 'error',
+               description: 'Ocorreu um erro ao tentar fazer login, cheque suas credenciais'
+            })
+
             return;
          }
       }
-
-   }, [])
-
-
+   }
 
    return (
       <Container {...rest}>

@@ -2,21 +2,10 @@ import React, { useEffect, useState } from "react";
 
 import { Text, Button } from "../../components/atoms";
 import { Form, Header } from "../../components/molecules";
-import api from "../../services/api";
-import IUsers from '../../models/Users'
-import { useAuth } from '../../hooks/useAuth';
-
 
 import { Container } from "./styles";
 
 const Login: React.FC = () => {
-
-   const { getUsers } = useAuth()
-
-   useEffect(() => {
-      getUsers()
-      console.log("execued getuser")
-   }, [])
 
    return (
       <>

@@ -4,16 +4,20 @@ import About from "./About";
 import Login from "./Login";
 import Research from "./Research";
 import { AuthProvider } from '../contexts/auth';
+import { ToastProvider } from '../contexts/toast';
+
 
 export default function Routing() {
    return (
       <AuthProvider>
-         <Routes>
-            <Route path="/home" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/research" element={<Research />} />
-            <Route exact path="/" element={<Login />} />
-         </Routes>
+         <ToastProvider>
+            <Routes>
+               <Route path="/home" element={<Home />} />
+               <Route path="/about" element={<About />} />
+               <Route path="/research" element={<Research />} />
+               <Route exact path="/" element={<Login />} />
+            </Routes>
+         </ToastProvider>
       </AuthProvider>
    );
 }
