@@ -34,7 +34,6 @@ export const AuthProvider = (props: AuthContextProps) => {
    })
 
    const getUsers = async () => {
-      console.log("entrou getuser")
       try {
          const response = await api.get(
             "https://api.airtable.com/v0/app6wQWfM6eJngkD4/Login?maxRecords=3&view=Grid%20view",
@@ -62,7 +61,6 @@ export const AuthProvider = (props: AuthContextProps) => {
          navigate('/research')
          return true
       } else {
-         console.log("not found")
          return false
       }
 

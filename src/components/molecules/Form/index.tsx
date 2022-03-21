@@ -40,8 +40,6 @@ export const Form: React.FC<IForm> = (...rest) => {
 
          const { email, password } = data
 
-         console.log(data, "digited")
-
          const userFound = signIn(email, password)
 
          if (!userFound) {

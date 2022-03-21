@@ -25,9 +25,7 @@ export const Input: React.FC<TextFieldProps> = ({
    const inputRef = useRef<HTMLInputElement>(null);
    const [isField, setIsField] = useState(false);
    const [isFocused, setIsFocused] = useState(false);
-   const { fieldName, defaultValue, error, registerField } = useField(name) //o nome do campo, obtenho das propriedades do InputProps
-
-   console.log(error, "input")
+   const { fieldName, defaultValue, error, registerField } = useField(name)
 
    const handleInputFocus = useCallback(() => {
       setIsFocused(true);
@@ -41,8 +39,8 @@ export const Input: React.FC<TextFieldProps> = ({
    useEffect(() => {
       registerField({
          name: fieldName,
-         ref: inputRef.current, //obtendo o input, parecido com jQuery
-         path: 'value', //informando que o valor esta dentro de .value
+         ref: inputRef.current,
+         path: 'value',
       })
    }, [fieldName, registerField])
 

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom'
 import { Button, Input, Text } from "../../components/atoms";
 import { Hero, TabContainer, TabImages, TabsCustom, TabTweets } from "./style";
 import { Footer, Header, Tab, Tabs, Card } from "../../components/molecules";
@@ -30,6 +31,7 @@ const Home = () => {
 
    const { signOut } = useAuth()
    const { addToast } = useToast()
+   const navigate = useNavigate();
 
    const navigateToLogin = () => {
       signOut();
@@ -44,6 +46,18 @@ const Home = () => {
    const responsiveTabs = 767;
    const [responsiveTab, setResponsiveTab] = useState(!!responsiveTabs);
    useEffect(() => {
+
+      const user = localStorage.getItem('@Hashtag-Finger.user')
+
+      if (!user) {
+         addToast({
+            title: 'Usuário não autenticado',
+            type: 'error',
+            description: 'É necessário a autenticação para navegar para a página Home'
+         })
+         navigate('/')
+      }
+
       window.onresize = () => {
          setResponsiveTab(window.innerWidth > responsiveTabs);
       };

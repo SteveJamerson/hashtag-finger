@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom'
 
 import { Container } from "./styles";
 
@@ -50,6 +51,8 @@ const Research: React.FC<SearchParams> = ({ search }) => {
 
    const { signOut } = useAuth()
    const { addToast } = useToast()
+   const navigate = useNavigate();
+
    const navigateToLogin = () => {
       signOut();
 
@@ -78,6 +81,17 @@ const Research: React.FC<SearchParams> = ({ search }) => {
    };
 
    useEffect(() => {
+
+      const user = localStorage.getItem('@Hashtag-Finger.user')
+
+      if (!user) {
+         addToast({
+            title: 'Usuário não autenticado',
+            type: 'error',
+            description: 'É necessário a autenticação para navegar para a página Busca'
+         })
+         navigate('/')
+      }
       getDataTable(search);
    }, []);
 
