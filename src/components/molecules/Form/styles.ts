@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { ButtonComponent } from '../../atoms/Button/style';
 
 export const Container = styled.div`
    width: 530px;
@@ -40,23 +39,4 @@ export const Title = styled.h3`
    @media (max-width: 411px) {
       margin: 62px 0 44px 0;
    }
-`;
-
-export const Button = styled(ButtonComponent)`
-   width: 205px;
-   height: 56px;
-   display: flex;
-   align-items: center;
-   justify-content: center;
-
-   background: rgba(114, 239, 219, 1);
-   border-radius: 34px;
-
-   font-size: 19px;
-   font-family: 'Rubik';
-   font-weight: 500;
-   letter-spacing: 0.57px;
-   color: #0b1741;
-   text-transform: uppercase;
-   margin: 0 auto;
 `;

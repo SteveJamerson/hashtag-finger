@@ -1,6 +1,6 @@
 import { TextFieldProps } from './interface';
 import styled, { css } from 'styled-components';
-import Tooltip from '../../atoms/Tooltip'
+import Tooltip from '../Tooltip'
 
 
 export const Component = styled.div<{ variant?: string }>`
@@ -65,7 +65,9 @@ export const InputComponent = styled.input<TextFieldProps>`
          border-bottom-width: 2px;
          font-size: 16px;
          color: #72efdb;
-
+         transition: 0.5s;
+         transform-origin: left;
+         
          & + label {
             left: 0.5rem;
             font-size: 16px;

@@ -1,13 +1,11 @@
-import React, { useCallback, useRef } from "react";
-import { Link } from "react-router-dom";
+import React, { useRef } from "react";
 import { Form as FormUnform } from '@unform/web'
 import { FormHandles } from '@unform/core'
 import * as Yup from 'yup'
-import { Input } from "../../atoms";
+import { Input, Button } from "../../atoms";
 import { IForm } from "./interface";
-import { Container, Title, Button } from "./styles";
+import { Container, Title } from "./styles";
 import getValidationErrors from "../../../utils/getValidationError";
-import api from "../../../services/api";
 import { useAuth } from '../../../hooks/useAuth';
 import { useToast } from '../../../hooks/useToast'
 
@@ -55,7 +53,7 @@ export const Form: React.FC<IForm> = (...rest) => {
             addToast({
                title: 'Autenticação realizada',
                type: 'success',
-               description: 'Autenticação realizada com sucesso'
+               description: 'Autenticação feita com sucesso'
             })
          }
       } catch (err) {
@@ -80,7 +78,7 @@ export const Form: React.FC<IForm> = (...rest) => {
             <Title>Login</Title>
             <Input label="Usuário" name="email" variant="outline" id="user" type="text" />
             <Input label="Senha" name="password" variant="outline" id="password" type="password" />
-            <Button type="submit">Acessar</Button>
+            <Button variant="secundary" type="submit">Acessar</Button>
          </FormUnform>
       </Container>
    );

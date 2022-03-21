@@ -14,7 +14,7 @@ const Login: React.FC = () => {
                hashtag<b>finder</b>
             </Text>
             <div>
-               <Button iconName={undefined} iconPosition="start" iconSize={10}>
+               <Button>
                   HOME
                </Button>
             </div>
