@@ -3,6 +3,9 @@ import { Button, Input, Text } from "../../components/atoms";
 import { Hero, TabContainer, TabImages, TabsCustom, TabTweets } from "./style";
 import { Footer, Header, Tab, Tabs, Card } from "../../components/molecules";
 import { CardProps } from "../../components/molecules/Card/interface";
+import { useAuth } from '../../hooks/useAuth'
+import { useToast } from "../../hooks/useToast";
+
 
 const Home = () => {
    const tweets: CardProps[] = [...Array(10).keys()].map((i: number) => {
@@ -24,6 +27,19 @@ const Home = () => {
          background: require(`../../assets/mock/paisagem-${(i % 5) + 1}.jpg`),
       };
    });
+
+   const { signOut } = useAuth()
+   const { addToast } = useToast()
+
+   const navigateToLogin = () => {
+      signOut();
+
+      addToast({
+         title: 'Deslogado com sucesso',
+         type: 'info',
+         description: 'Você foi deslogado para acessar a página de Login'
+      })
+   }
 
    const responsiveTabs = 767;
    const [responsiveTab, setResponsiveTab] = useState(!!responsiveTabs);
@@ -48,6 +64,7 @@ const Home = () => {
                   iconPosition="start"
                   iconSize={10}
                   color="secondary"
+                  onClick={navigateToLogin}
                >
                   LOGIN
                </Button>
@@ -67,7 +84,6 @@ const Home = () => {
                variant="fill"
                icon="search"
                placeholder="Buscar..."
-               name="search"
             />
          </Hero>
          <TabContainer>

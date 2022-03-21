@@ -1,5 +1,7 @@
 import { TextFieldProps } from './interface';
 import styled, { css } from 'styled-components';
+import Tooltip from '../../../atoms/Tooltip'
+
 
 export const Component = styled.div<{ variant?: string }>`
    position: relative;
@@ -108,4 +110,24 @@ export const LabelComponent = styled.label<
       props.focused
          ? 'translate(-.5rem, -.75rem) scale(0.75)'
          : 'translate(0, .5rem) scale(1)'};
+`;
+
+export const Error = styled(Tooltip)`
+height: 20px;
+margin-left: 94%;
+bottom: 32px;
+
+
+& + svg {
+   background: green;
+
+}
+
+span {
+   background: #c53030;
+   color: #FFF;
+   &::before {
+       border-color: #c53030 transparent;
+   }
+}
 `;

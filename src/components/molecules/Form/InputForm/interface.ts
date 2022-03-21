@@ -1,4 +1,4 @@
-import { IconName } from './../Icon/types';
+import { IconName } from './../../../atoms/Icon/types';
 import { AnchorHTMLAttributes } from 'react';
 
 export interface TextFieldProps extends AnchorHTMLAttributes<HTMLInputElement> {
@@ -12,4 +12,5 @@ export interface TextFieldProps extends AnchorHTMLAttributes<HTMLInputElement> {
    helperText?: string;
    disabled?: boolean;
    icon?: IconName;
+   name: string;
 }

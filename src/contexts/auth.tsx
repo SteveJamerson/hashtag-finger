@@ -9,7 +9,7 @@ export const AuthContext = createContext<IAuthContextData>({} as IAuthContextDat
 type IAuthContextData = {
    user: IUsers;
    signIn: (email: string, password: string) => boolean;
-   signOut?: () => void;
+   signOut: () => void;
    getUsers: () => void
 }
 
@@ -68,13 +68,14 @@ export const AuthProvider = (props: AuthContextProps) => {
 
    }
 
+   const signOut = () => {
+      localStorage.removeItem('@Hashtag-Finger.user');
+      setUser({} as IUsers)
+      navigate('/')
+   }
+
    useEffect(() => {
       getUsers()
-
-      if (Object.keys(user).length !== 0) {
-         navigate('/research')
-      }
-
    }, [])
 
    return (
@@ -82,6 +83,7 @@ export const AuthProvider = (props: AuthContextProps) => {
          value={{
             user,
             signIn,
+            signOut,
             getUsers,
          }}>
          {props.children}

@@ -10,6 +10,8 @@ import IDataTable from "../../components/organism/Table/types/IDataTable";
 import { Table } from "../../components/organism";
 import { Header } from "../../components/molecules";
 import { Button, Text } from "../../components/atoms";
+import { useAuth } from '../../hooks/useAuth'
+import { useToast } from '../../hooks/useToast'
 
 // Mock
 import dataMock from './dataMock';
@@ -45,6 +47,18 @@ const Research: React.FC<SearchParams> = ({ search }) => {
    const [loaded, setLoaded] = useState(false);
    const [data, setData] = useState<Results | undefined>();
    const [parsedData, setParsedData] = useState<Array<IDataTable>>([]);
+
+   const { signOut } = useAuth()
+   const { addToast } = useToast()
+   const navigateToLogin = () => {
+      signOut();
+
+      addToast({
+         title: 'Deslogado com sucesso',
+         type: 'info',
+         description: 'Você foi deslogado para acessar a página de Login'
+      })
+   }
 
    const getDataTable = async (searchParam: string) => {
       try {
@@ -116,6 +130,7 @@ const Research: React.FC<SearchParams> = ({ search }) => {
                   iconPosition="start"
                   iconSize={10}
                   color="secondary"
+                  onClick={navigateToLogin}
                >
                   LOGIN
                </Button>
