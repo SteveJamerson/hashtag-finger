@@ -73,7 +73,7 @@ const Research: React.FC<SearchParams> = ({ search }) => {
          const tempData: Array<IDataTable> = [];
          records.forEach((element: Records) => {
             const dataString = element.fields.Data.toString();
-            const formattedData = dataString.substring(0, 2)+"/"+dataString.substring(2, 4);
+            const formattedData = dataString.substring(0, 2) + "/" + dataString.substring(2, 4);
 
             const hourToString = element.createdTime.toString();
             const formattedHour = hourToString.substring(11, 16);

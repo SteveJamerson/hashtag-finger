@@ -1,5 +1,7 @@
 import { TextFieldProps } from './interface';
 import styled, { css } from 'styled-components';
+import Tooltip from '../Tooltip'
+
 
 export const Component = styled.div<{ variant?: string }>`
    position: relative;
@@ -8,8 +10,8 @@ export const Component = styled.div<{ variant?: string }>`
 
    @media (min-width: 767px) {
       ${(props) =>
-         props.variant === 'fill' &&
-         css`
+      props.variant === 'fill' &&
+      css`
             max-width: 1000px;
             width: 100%;
             margin: auto;
@@ -17,7 +19,7 @@ export const Component = styled.div<{ variant?: string }>`
          `}
    }
 
-   svg {
+   svg > {
       position: absolute;
       z-index: 1;
       left: 1.5rem;
@@ -54,7 +56,6 @@ export const InputComponent = styled.input<TextFieldProps>`
    background-color: transparent;
    padding: 1rem 0.5rem;
    transition: 0.3s;
-   border-color: ${(props) => props.error && 'red'};
    outline: 0;
 
    ${(props) =>
@@ -64,7 +65,9 @@ export const InputComponent = styled.input<TextFieldProps>`
          border-bottom-width: 2px;
          font-size: 16px;
          color: #72efdb;
-
+         transition: 0.5s;
+         transform-origin: left;
+         
          & + label {
             left: 0.5rem;
             font-size: 16px;
@@ -92,10 +95,11 @@ export const InputComponent = styled.input<TextFieldProps>`
             height: 75px;
          }
       `}
+      border-color: ${(props) => props.isError && '#C53030'};
 `;
 export const LabelComponent = styled.label<
    HTMLLabelElement | { focused: boolean }
->`
+   >`
    position: absolute;
    top: 0;
    left: 0;
@@ -106,4 +110,24 @@ export const LabelComponent = styled.label<
       props.focused
          ? 'translate(-.5rem, -.75rem) scale(0.75)'
          : 'translate(0, .5rem) scale(1)'};
+`;
+
+export const Error = styled(Tooltip)`
+height: 20px;
+margin-left: 94%;
+bottom: 32px;
+
+
+& + svg {
+   background: green;
+
+}
+
+span {
+   background: #c53030;
+   color: #FFF;
+   &::before {
+       border-color: #c53030 transparent;
+   }
+}
 `;

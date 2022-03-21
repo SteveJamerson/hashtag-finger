@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { Text, Button } from "../../components/atoms";
 import { Form, Header } from "../../components/molecules";
@@ -6,6 +6,7 @@ import { Form, Header } from "../../components/molecules";
 import { Container } from "./styles";
 
 const Login: React.FC = () => {
+
    return (
       <>
          <Header component="nav">
@@ -13,7 +14,7 @@ const Login: React.FC = () => {
                hashtag<b>finder</b>
             </Text>
             <div>
-               <Button iconName={undefined} iconPosition="start" iconSize={10}>
+               <Button>
                   HOME
                </Button>
             </div>

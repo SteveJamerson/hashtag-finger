@@ -67,6 +67,7 @@ const Home = () => {
                variant="fill"
                icon="search"
                placeholder="Buscar..."
+               name="search"
             />
          </Hero>
          <TabContainer>
