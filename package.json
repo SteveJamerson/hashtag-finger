@@ -1,7 +1,6 @@
 {
    "name": "hashtag-finger",
    "version": "0.1.0",
-   "homepage": "https://stevejamerson.github.io/hashtag-finger/",
    "private": true,
    "scripts": {
       "start": "react-scripts start",
