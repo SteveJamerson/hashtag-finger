@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import image from "../../assets/about-ilustration.svg";
 import { Button, Text } from "../../components/atoms";
 import { Card as CardText, Footer, Header } from "../../components/molecules";
+import { useAuth } from "../../hooks/useAuth";
+import { useToast } from "../../hooks/useToast";
 import { CardResponse } from "./interfaces";
 import {
    Container,
@@ -89,6 +92,7 @@ const About: React.FC = () => {
                   iconPosition="start"
                   iconSize={10}
                   color="secondary"
+                  onClick={navigateToLogin}
                >
                   LOGIN
                </Button>

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom'
 
 import { Container } from "./styles";
 
@@ -10,6 +11,8 @@ import IDataTable from "../../components/organism/Table/types/IDataTable";
 import { Table } from "../../components/organism";
 import { Header } from "../../components/molecules";
 import { Button, Text } from "../../components/atoms";
+import { useAuth } from '../../hooks/useAuth'
+import { useToast } from '../../hooks/useToast'
 
 // Mock
 import dataMock from './dataMock';
@@ -46,6 +49,20 @@ const Research: React.FC<SearchParams> = ({ search }) => {
    const [data, setData] = useState<Results | undefined>();
    const [parsedData, setParsedData] = useState<Array<IDataTable>>([]);
 
+   const { signOut } = useAuth()
+   const { addToast } = useToast()
+   const navigate = useNavigate();
+
+   const navigateToLogin = () => {
+      signOut();
+
+      addToast({
+         title: 'Deslogado com sucesso',
+         type: 'info',
+         description: 'Você foi deslogado para acessar a página de Login'
+      })
+   }
+
    const getDataTable = async (searchParam: string) => {
       try {
          setLoaded(true);
@@ -64,6 +81,17 @@ const Research: React.FC<SearchParams> = ({ search }) => {
    };
 
    useEffect(() => {
+
+      const user = localStorage.getItem('@Hashtag-Finger.user')
+
+      if (!user) {
+         addToast({
+            title: 'Usuário não autenticado',
+            type: 'error',
+            description: 'É necessário a autenticação para navegar para a página Busca'
+         })
+         navigate('/')
+      }
       getDataTable(search);
    }, []);
 
@@ -73,7 +101,7 @@ const Research: React.FC<SearchParams> = ({ search }) => {
          const tempData: Array<IDataTable> = [];
          records.forEach((element: Records) => {
             const dataString = element.fields.Data.toString();
-            const formattedData = dataString.substring(0, 2)+"/"+dataString.substring(2, 4);
+            const formattedData = dataString.substring(0, 2) + "/" + dataString.substring(2, 4);
 
             const hourToString = element.createdTime.toString();
             const formattedHour = hourToString.substring(11, 16);
@@ -116,6 +144,7 @@ const Research: React.FC<SearchParams> = ({ search }) => {
                   iconPosition="start"
                   iconSize={10}
                   color="secondary"
+                  onClick={navigateToLogin}
                >
                   LOGIN
                </Button>
