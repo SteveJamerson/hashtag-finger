@@ -2,7 +2,8 @@ import React, { useRef } from "react";
 import { Form as FormUnform } from '@unform/web'
 import { FormHandles } from '@unform/core'
 import * as Yup from 'yup'
-import { Input, Button } from "../../atoms";
+import { Button } from "../../atoms";
+import { Input } from './InputForm'
 import { IForm } from "./interface";
 import { Container, Title } from "./styles";
 import getValidationErrors from "../../../utils/getValidationError";
@@ -38,8 +39,6 @@ export const Form: React.FC<IForm> = (...rest) => {
          })
 
          const { email, password } = data
-
-         console.log(data, "digited")
 
          const userFound = signIn(email, password)
 

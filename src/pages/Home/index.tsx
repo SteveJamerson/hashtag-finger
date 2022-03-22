@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom'
 import { Button, Input, Text } from "../../components/atoms";
 import { Hero, TabContainer, TabImages, TabsCustom, TabTweets } from "./style";
 import { Footer, Header, Tab, Tabs, Card } from "../../components/molecules";
 import { CardProps } from "../../components/molecules/Card/interface";
+import { useAuth } from '../../hooks/useAuth'
+import { useToast } from "../../hooks/useToast";
+
 
 const Home = () => {
    const tweets: CardProps[] = [...Array(10).keys()].map((i: number) => {
@@ -25,9 +29,35 @@ const Home = () => {
       };
    });
 
+   const { signOut } = useAuth()
+   const { addToast } = useToast()
+   const navigate = useNavigate();
+
+   const navigateToLogin = () => {
+      signOut();
+
+      addToast({
+         title: 'Deslogado com sucesso',
+         type: 'info',
+         description: 'Você foi deslogado para acessar a página de Login'
+      })
+   }
+
    const responsiveTabs = 767;
    const [responsiveTab, setResponsiveTab] = useState(!!responsiveTabs);
    useEffect(() => {
+
+      const user = localStorage.getItem('@Hashtag-Finger.user')
+
+      if (!user) {
+         addToast({
+            title: 'Usuário não autenticado',
+            type: 'error',
+            description: 'É necessário a autenticação para navegar para a página Home'
+         })
+         navigate('/')
+      }
+
       window.onresize = () => {
          setResponsiveTab(window.innerWidth > responsiveTabs);
       };
@@ -48,6 +78,7 @@ const Home = () => {
                   iconPosition="start"
                   iconSize={10}
                   color="secondary"
+                  onClick={navigateToLogin}
                >
                   LOGIN
                </Button>
@@ -67,7 +98,6 @@ const Home = () => {
                variant="fill"
                icon="search"
                placeholder="Buscar..."
-               name="search"
             />
          </Hero>
          <TabContainer>

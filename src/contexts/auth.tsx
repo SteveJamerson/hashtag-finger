@@ -9,7 +9,7 @@ export const AuthContext = createContext<IAuthContextData>({} as IAuthContextDat
 type IAuthContextData = {
    user: IUsers;
    signIn: (email: string, password: string) => boolean;
-   signOut?: () => void;
+   signOut: () => void;
    getUsers: () => void
 }
 
@@ -34,7 +34,6 @@ export const AuthProvider = (props: AuthContextProps) => {
    })
 
    const getUsers = async () => {
-      console.log("entrou getuser")
       try {
          const response = await api.get(
             "https://api.airtable.com/v0/app6wQWfM6eJngkD4/Login?maxRecords=3&view=Grid%20view",
@@ -62,19 +61,19 @@ export const AuthProvider = (props: AuthContextProps) => {
          navigate('/research')
          return true
       } else {
-         console.log("not found")
          return false
       }
 
    }
 
+   const signOut = () => {
+      localStorage.removeItem('@Hashtag-Finger.user');
+      setUser({} as IUsers)
+      navigate('/')
+   }
+
    useEffect(() => {
       getUsers()
-
-      if (Object.keys(user).length !== 0) {
-         navigate('/research')
-      }
-
    }, [])
 
    return (
@@ -82,6 +81,7 @@ export const AuthProvider = (props: AuthContextProps) => {
          value={{
             user,
             signIn,
+            signOut,
             getUsers,
          }}>
          {props.children}
