@@ -2,8 +2,14 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button, Input, Text } from "../../components/atoms";
-import { Hero, TabContainer, TabImages, TabsCustom, TabTweets } from "./style";
+import { Button, Container, Input, Text } from "../../components/atoms";
+import {
+   HeroContainer,
+   TabContainer,
+   TabImages,
+   TabsCustom,
+   TabTweets,
+} from "./style";
 import { Footer, Header, Card } from "../../components/molecules";
 import { CardProps } from "../../components/molecules/Card/interface";
 import { useAuth } from "../../hooks/useAuth";
@@ -46,7 +52,7 @@ const Home = () => {
       });
    };
 
-   const responsiveTabs = 767;
+   const responsiveTabs = 992;
    const [responsiveTab, setResponsiveTab] = useState(!!responsiveTabs);
    useEffect(() => {
       const user = localStorage.getItem("@Hashtag-Finger.user");
@@ -101,75 +107,83 @@ const Home = () => {
                </Button>
             </div>
          </Header>
-         <Hero>
-            <Text component="h2" variant="heading">
-               Encontre hashtags de maneira fácil.
-            </Text>
-            <Text>
-               Digite o que deseja no campo de buscas e confira os resultados do
-               Twitter abaixo
-            </Text>
-            <Input
-               type="text"
-               id="search"
-               variant="fill"
-               icon="search"
-               placeholder="Buscar..."
-               maxLength={140}
-               onChange={handleSearch}
-            />
-         </Hero>
-         <TabContainer>
-            <Text size="1.5rem" align="center" margin="0 0 2rem 0">
-               Exibindo os 10 resultados mais recentes para #natureza
-            </Text>
-            <TabsCustom
-               active={0}
-               id="tab"
-               config={[
-                  {
-                     name: "Imagens",
-                     order: 1,
-                  },
-                  {
-                     name: "Tweets",
-                     order: 0,
-                  },
-               ]}
-               responsive={responsiveTab}
-            >
-               <TabImages order={1}>
-                  {images.map(
-                     ({ variant, title, subtitle, background }, i: number) => (
-                        <Card
-                           key={i}
-                           title={title}
-                           subtitle={subtitle}
-                           variant={variant}
-                           background={background}
-                        />
-                     )
-                  )}
-               </TabImages>
-               <TabTweets order={0}>
-                  {tweets.map(
-                     (
-                        { variant, title, subtitle, text, link, image },
-                        i: number
-                     ) => (
-                        <Card
-                           key={i}
-                           title={title}
-                           subtitle={subtitle}
-                           text={text}
-                           variant={variant}
-                           link={link}
-                           image={image}
-                        />
-                     )
-                  )}
-               </TabTweets>
-            </TabsCustom>
+
+         <HeroContainer container="fluid">
+            <Container>
+               <Text component="h2" variant="heading">
+                  Encontre hashtags de maneira fácil.
+               </Text>
+               <Text>
+                  Digite o que deseja no campo de buscas e confira os resultados
+                  do Twitter abaixo
+               </Text>
+               <Input
+                  type="text"
+                  id="search"
+                  variant="fill"
+                  icon="search"
+                  placeholder="Buscar..."
+                  maxLength={140}
+                  onChange={handleSearch}
+               />
+            </Container>
+         </HeroContainer>
+         <TabContainer container="fluid">
+            <Container>
+               <Text size="1.5rem" align="center" margin="0 0 2rem 0">
+                  Exibindo os 10 resultados mais recentes para #natureza
+               </Text>
+               <TabsCustom
+                  active={0}
+                  id="tab"
+                  config={[
+                     {
+                        name: "Imagens",
+                        order: 1,
+                     },
+                     {
+                        name: "Tweets",
+                        order: 0,
+                     },
+                  ]}
+                  responsive={responsiveTab}
+               >
+                  <TabImages order={1}>
+                     {images.map(
+                        (
+                           { variant, title, subtitle, background },
+                           i: number
+                        ) => (
+                           <Card
+                              key={i}
+                              title={title}
+                              subtitle={subtitle}
+                              variant={variant}
+                              background={background}
+                           />
+                        )
+                     )}
+                  </TabImages>
+                  <TabTweets order={0}>
+                     {tweets.map(
+                        (
+                           { variant, title, subtitle, text, link, image },
+                           i: number
+                        ) => (
+                           <Card
+                              key={i}
+                              title={title}
+                              subtitle={subtitle}
+                              text={text}
+                              variant={variant}
+                              link={link}
+                              image={image}
+                           />
+                        )
+                     )}
+                  </TabTweets>
+               </TabsCustom>
+            </Container>
          </TabContainer>
          <Footer>
             <Text>
