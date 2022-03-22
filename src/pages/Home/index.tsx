@@ -69,8 +69,11 @@ const Home = () => {
    const handleSearch = useCallback(
       useDebounce((e: React.FormEvent<HTMLInputElement>) => {
          e.preventDefault();
+         const target = e.target as HTMLInputElement;
+         let { value } = target;
+         value = value.replace(/^#/, "");
 
-         const { value } = e.target as HTMLInputElement;
+         target.value = value;
 
          value && postFind(value).then((res) => console.log(res));
       }),
