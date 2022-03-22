@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from 'react-router-dom'
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable react-hooks/rules-of-hooks */
+import React, { useCallback, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button, Input, Text } from "../../components/atoms";
 import { Hero, TabContainer, TabImages, TabsCustom, TabTweets } from "./style";
-import { Footer, Header, Tab, Tabs, Card } from "../../components/molecules";
+import { Footer, Header, Card } from "../../components/molecules";
 import { CardProps } from "../../components/molecules/Card/interface";
-import { useAuth } from '../../hooks/useAuth'
+import { useAuth } from "../../hooks/useAuth";
 import { useToast } from "../../hooks/useToast";
-
+import { postFind } from "../../services/find";
+import { useDebounce } from "../../hooks/useDebounce";
 
 const Home = () => {
    const tweets: CardProps[] = [...Array(10).keys()].map((i: number) => {
@@ -29,39 +32,50 @@ const Home = () => {
       };
    });
 
-   const { signOut } = useAuth()
-   const { addToast } = useToast()
+   const { signOut } = useAuth();
+   const { addToast } = useToast();
    const navigate = useNavigate();
 
    const navigateToLogin = () => {
       signOut();
 
       addToast({
-         title: 'Deslogado com sucesso',
-         type: 'info',
-         description: 'Você foi deslogado para acessar a página de Login'
-      })
-   }
+         title: "Deslogado com sucesso",
+         type: "info",
+         description: "Você foi deslogado para acessar a página de Login",
+      });
+   };
 
    const responsiveTabs = 767;
    const [responsiveTab, setResponsiveTab] = useState(!!responsiveTabs);
    useEffect(() => {
-
-      const user = localStorage.getItem('@Hashtag-Finger.user')
+      const user = localStorage.getItem("@Hashtag-Finger.user");
 
       if (!user) {
          addToast({
-            title: 'Usuário não autenticado',
-            type: 'error',
-            description: 'É necessário a autenticação para navegar para a página Home'
-         })
-         navigate('/')
+            title: "Usuário não autenticado",
+            type: "error",
+            description:
+               "É necessário a autenticação para navegar para a página Home",
+         });
+         navigate("/");
       }
 
       window.onresize = () => {
          setResponsiveTab(window.innerWidth > responsiveTabs);
       };
    });
+
+   const handleSearch = useCallback(
+      useDebounce((e: React.FormEvent<HTMLInputElement>) => {
+         e.preventDefault();
+
+         const { value } = e.target as HTMLInputElement;
+
+         value && postFind(value).then((res) => console.log(res));
+      }),
+      []
+   );
 
    return (
       <>
@@ -98,6 +112,8 @@ const Home = () => {
                variant="fill"
                icon="search"
                placeholder="Buscar..."
+               maxLength={140}
+               onChange={handleSearch}
             />
          </Hero>
          <TabContainer>
