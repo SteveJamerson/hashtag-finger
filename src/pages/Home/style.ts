@@ -2,9 +2,11 @@ import styled, { css } from 'styled-components';
 
 import hero from '../../assets/images/hero-bg.png';
 import mobile from '../../assets/images/mobile-hero-bg.png';
+import { Container } from '../../components/atoms';
 import { Tab, Tabs } from '../../components/molecules';
+import Theme from '../../components/tokens/theme';
 
-export const Hero = styled.div<any>`
+export const HeroContainer = styled(Container)`
    display: flex;
    flex-direction: column;
    padding: 3rem 1rem;
@@ -30,13 +32,13 @@ export const Hero = styled.div<any>`
       margin-top: 4rem;
    }
 
-   @media (min-width: 576px) {
+   @media (min-width: ${Theme.breakPoints.mobile}) {
       background-image: url(${hero}),
          radial-gradient(circle at 0% -30%, #1e3e7b -100%, #0a1744 55%);
       min-height: 600px;
    }
 
-   @media (min-width: 767px) {
+   @media (min-width: ${Theme.breakPoints.ipad}) {
       padding: 5rem;
       background-size: 60%, contain;
 
@@ -50,12 +52,13 @@ export const Hero = styled.div<any>`
       }
    }
 
-   @media (min-width: 992px) {
+   @media (min-width: ${Theme.breakPoints.ipadPro}) {
       background-position: center right;
       background-size: contain;
    }
 `;
-export const TabContainer = styled.div`
+
+export const TabContainer = styled(Container)`
    padding: 2rem 0;
    background-color: #0a1744;
 
@@ -63,6 +66,7 @@ export const TabContainer = styled.div`
    flex-direction: column;
    justify-content: center;
 `;
+
 export const TabImages = styled(Tab)`
    display: flex;
    flex-flow: row wrap;
@@ -90,8 +94,11 @@ export const TabTweets = styled(Tab)`
 `;
 
 export const TabsCustom = styled(Tabs)`
-   max-width: 1100px;
    align-self: center;
+
+   @media (min-width: ${Theme.breakPoints.ipadPro}) {
+      gap: 2rem;
+   }
 
    ${(props) =>
       props.responsive &&

@@ -1,6 +1,6 @@
 import React, { useCallback, useRef, useState } from "react";
 import { Icon } from "../Icon";
-import { FiAlertCircle } from 'react-icons/fi'
+import { FiAlertCircle } from "react-icons/fi";
 
 import { TextFieldProps } from "./interface";
 import { Component, InputComponent, LabelComponent } from "./style";
@@ -9,7 +9,7 @@ import { useEffect } from "react";
 export const Input: React.FC<TextFieldProps> = ({
    className,
    variant = "outline",
-   size = "medium",
+   sizes = "medium",
    type = "text",
    id,
    label,
