@@ -1,9 +1,9 @@
 import { IconName } from './../Icon/types';
-import { AnchorHTMLAttributes } from 'react';
+import { InputHTMLAttributes } from 'react';
 
-export interface TextFieldProps extends AnchorHTMLAttributes<HTMLInputElement> {
+export interface TextFieldProps extends InputHTMLAttributes<HTMLInputElement> {
    variant?: 'outline' | 'fill';
-   size?: 'small' | 'medium' | 'large';
+   sizes?: 'small' | 'medium' | 'large';
    type: 'text' | 'number' | 'tel' | 'email' | 'password' | 'search';
    id: string;
    label?: string;
@@ -12,4 +12,5 @@ export interface TextFieldProps extends AnchorHTMLAttributes<HTMLInputElement> {
    helperText?: string;
    disabled?: boolean;
    icon?: IconName;
+   key?: React.Key;
 }
