@@ -114,7 +114,12 @@ const Home = () => {
                hashtag<b>finder</b>
             </Text>
             <div>
-               <Button iconName="info" iconPosition="start" iconSize={10}>
+               <Button
+                  iconName="info"
+                  iconPosition="start"
+                  iconSize={10}
+                  onClick={() => navigate("/about")}
+               >
                   SOBRE
                </Button>
                <Button
