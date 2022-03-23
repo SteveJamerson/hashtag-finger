@@ -20,6 +20,10 @@ import {
 } from "./style";
 
 const About: React.FC = () => {
+   const { signOut } = useAuth();
+   const { addToast } = useToast();
+   const navigate = useNavigate();
+
    const [aboutText, setAboutText] = useState("");
    const [timeResponse, setTimeResponse] = useState<CardResponse[]>([]);
    const loadAbout = async () => {
@@ -72,7 +76,28 @@ const About: React.FC = () => {
       setTimeResponse(data.records);
    };
 
+   const navigateToLogin = () => {
+      signOut();
+
+      addToast({
+         title: "Deslogado com sucesso",
+         type: "info",
+         description: "Você foi deslogado para acessar a página de Login",
+      });
+   };
+
    useEffect(() => {
+      const user = localStorage.getItem("@Hashtag-Finger.user");
+      if (!user) {
+         addToast({
+            title: "Usuário não autenticado",
+            type: "error",
+            description:
+               "É necessário a autenticação para navegar para a página Sobre",
+         });
+         navigate("/");
+      }
+
       loadAbout();
       loadCard();
    }, []);
@@ -84,7 +109,12 @@ const About: React.FC = () => {
                hashtag<b>finder</b>
             </Text>
             <div>
-               <Button iconName="info" iconPosition="start" iconSize={10}>
+               <Button
+                  iconName="info"
+                  iconPosition="start"
+                  iconSize={10}
+                  onClick={() => navigate("/")}
+               >
                   SOBRE
                </Button>
                <Button
