@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import Theme from '../../tokens/theme';
 import { CardProps } from './interface';
 
 export const CardComponent = styled.div<CardProps>`
@@ -11,16 +12,19 @@ export const CardComponent = styled.div<CardProps>`
    ${(props) =>
       props.variant === 'horizontal' &&
       css`
-         display: grid;
-         gap: 0.5rem 1rem;
-         grid-template-areas:
-            'media title subtitle'
-            'media text text'
-            'media link link';
-         grid-template-columns: 70px min-content auto;
          background: #0b1a49;
          border: 1px solid #ffffff24;
          border-radius: 0.5rem;
+         gap: 0.5rem 1rem;
+
+         @media (min-width: ${Theme.breakPoints.mobile}) {
+            display: grid;
+            grid-template-areas:
+               'media title subtitle'
+               'media text text'
+               'media link link';
+            grid-template-columns: 70px min-content auto;
+         }
       `}
 
    ${(props) =>
@@ -86,6 +90,10 @@ export const TitleComponent = styled.div<CardProps>`
          p {
             font-size: 1rem;
             font-weight: 600;
+         }
+
+         @media (min-width: ${Theme.breakPoints.mobile}) {
+            white-space: nowrap;
          }
       `}
 

@@ -48,7 +48,7 @@ export const Card: React.FC<CardProps> = ({
             <LinksComponent variant={variant}>
                {link.map((l) => {
                   return (
-                     <a aria-label="link" href={l.href}>
+                     <a aria-label="link" href={l.href} target={l.target}>
                         {l.text || (
                            <Icon name={l.icon as IconName} size={20}></Icon>
                         )}
