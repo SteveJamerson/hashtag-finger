@@ -5,4 +5,6 @@ export interface BoxProps extends React.HTMLAttributes<HTMLDivElement> {
    margin?: string;
    padding?: string;
    background?: string;
+   height?: string;
+   width?: string;
 }

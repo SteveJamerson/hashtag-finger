@@ -7,4 +7,6 @@ export const BoxComponent = styled.div<BoxProps>`
    border-radius: ${(props) => props.radius};
    margin: ${(props) => props.margin};
    padding: ${(props) => props.padding};
+   height: ${(props) => props.height};
+   width: ${(props) => props.width};
 `;

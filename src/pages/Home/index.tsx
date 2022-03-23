@@ -2,7 +2,13 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button, Container, Input, Text } from "../../components/atoms";
+import {
+   Button,
+   Container,
+   Input,
+   Skeleton,
+   Text,
+} from "../../components/atoms";
 import {
    HeroContainer,
    TabContainer,
@@ -92,7 +98,7 @@ const Home = () => {
                return data;
             });
 
-            postFind(value).then((res) => console.log(res));
+            // postFind(value).then((res) => console.log(res));
 
             setImages(img);
             setTweets(tt);
@@ -175,7 +181,9 @@ const Home = () => {
                                 background={media.url}
                              />
                           ))
-                        : [...Array(10).keys()].map((_) => "loading")}
+                        : [...Array(10).keys()].map((_) => (
+                             <Skeleton height="180px" width="180px" />
+                          ))}
                   </TabImages>
                   <TabTweets order={0}>
                      {!loading
@@ -196,7 +204,9 @@ const Home = () => {
                                 image={user.profile_image_url}
                              />
                           ))
-                        : [...Array(10).keys()].map((_) => "loading")}
+                        : [...Array(10).keys()].map((_) => (
+                             <Skeleton height="150px" width="100%" />
+                          ))}
                   </TabTweets>
                </TabsCustom>
             </Container>
