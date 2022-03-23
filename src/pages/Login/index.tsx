@@ -31,7 +31,7 @@ const Login: React.FC = () => {
       let user = localStorage.getItem('@Hashtag-Finger.user')
 
       if (user) {
-         navigate('/research')
+         navigate('/')
       }
    }, [])
 

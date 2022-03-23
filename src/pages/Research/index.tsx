@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from 'react-router-dom'
 
 import { Container } from "./styles";
@@ -16,6 +16,7 @@ import { useToast } from '../../hooks/useToast'
 
 // Mock
 import dataMock from './dataMock';
+import TablePaginationProps from "../../components/organism/Table/types/Pagination";
 
 const columns: Array<IColumnsTable> = [
    {
@@ -46,7 +47,7 @@ interface SearchParams {
 
 const Research: React.FC<SearchParams> = ({ search }) => {
    const [loaded, setLoaded] = useState(false);
-   const [data, setData] = useState<Results | undefined>();
+   const [data, setData] = useState<Array<Records> | undefined>();
    const [parsedData, setParsedData] = useState<Array<IDataTable>>([]);
 
    const { signOut } = useAuth()
@@ -63,18 +64,41 @@ const Research: React.FC<SearchParams> = ({ search }) => {
       })
    }
 
-   const getDataTable = async (searchParam: string) => {
+   const navigateToAbout = () => {
+      navigate('/about');
+   }
+
+   // Criando referência do componente Paginação
+  const tableRef = useRef<React.ElementRef<typeof Table>>(null);
+  useEffect(() => {
+    tableRef.current?.clearPagination();
+  }, [data]);
+
+   const getDataTable = async () => {
+      const environmentTable = {
+         PATH: "https://api.airtable.com/v0",
+         AUTH: "Bearer key2CwkHb0CKumjuM",
+         KEY: "app6wQWfM6eJngkD4",
+         SQUAD: "zappts_2",
+      };
+      const url = `${environmentTable.PATH}/${environmentTable.KEY}/Buscas?pageSize=9&filterByFormula=Squad=2&maxRecords=36&view=Grid%20view`;
+      const headers = new Headers({
+         Authorization: environmentTable.AUTH,
+         "Content-Type": "application/json",
+      });
+
       try {
          setLoaded(true);
-         const response = await api.get(
-            "https://api.airtable.com/v0/app6wQWfM6eJngkD4/Buscas?maxRecords=3&view=Grid%20view",
-            {
-               params: searchParam,
-            }
-         );
-         setData(response.data);
+         const response = await fetch(`${url}`, {
+            method: "GET",
+            headers: headers,
+          });
+         const data = await response.json();
+         setData(data.records);
+         console.log('Response Data: ', data.records)
          setLoaded(false);
       } catch (err) {
+         console.log('Error')
          setData(undefined);
          setLoaded(false);
       }
@@ -92,38 +116,39 @@ const Research: React.FC<SearchParams> = ({ search }) => {
          })
          navigate('/')
       }
-      getDataTable(search);
+      getDataTable();
    }, []);
 
    useEffect(() => {
-      if (dataMock) {
-         const { records } = dataMock;
-         const tempData: Array<IDataTable> = [];
-         records.forEach((element: Records) => {
-            const dataString = element.fields.Data.toString();
-            const formattedData = dataString.substring(0, 2) + "/" + dataString.substring(2, 4);
+      if (data) {
+            const tempData: Array<IDataTable> = [];
+            data.forEach((element: Records) => {
+               if (element.fields.Data) {
+                  const dataString = element.fields.Data.toString();
+                  const formattedData = dataString.substring(0, 2) + "/" + dataString.substring(2, 4);
 
-            const hourToString = element.createdTime.toString();
-            const formattedHour = hourToString.substring(11, 16);
+                  const hourToString = element.createdTime.toString();
+                  const formattedHour = hourToString.substring(11, 16);
 
-            const rowElement: IDataTable = {
-               item: element,
-               rows: {
-                  hashtag: {
-                     component: <p>#{element.fields.Hashtag}</p>,
-                  },
-                  hour: {
-                     component: <p>{formattedHour}</p>,
-                  },
-                  date: {
-                     component: <p>{formattedData}</p>,
-                  },
-               },
-            };
-            tempData.push(rowElement);
-         });
-         setParsedData(tempData);
-      } else {
+                  const rowElement: IDataTable = {
+                     item: element,
+                     rows: {
+                        hashtag: {
+                           component: <p>{element.fields.Hashtag ? `#${element.fields.Hashtag}` : '#' }</p>,
+                        },
+                        hour: {
+                           component: <p>{formattedHour ? formattedHour : ''}</p>,
+                        },
+                        date: {
+                           component: <p>{formattedData ? formattedData : ''}</p>,
+                        },
+                     },
+                  };
+                  tempData.push(rowElement);
+               }
+            });
+           setParsedData(tempData);
+         } else {
          const clearData: Array<IDataTable> = [];
          setParsedData(clearData);
       }
@@ -136,7 +161,7 @@ const Research: React.FC<SearchParams> = ({ search }) => {
                hashtag<b>finder</b>
             </Text>
             <div>
-               <Button iconName="info" iconPosition="start" iconSize={10}>
+               <Button iconName="info" iconPosition="start" iconSize={10} onClick={navigateToAbout}>
                   SOBRE
                </Button>
                <Button
@@ -155,6 +180,7 @@ const Research: React.FC<SearchParams> = ({ search }) => {
             data={parsedData}
             loading={loaded}
             subTitle="Buscas Realizadas"
+            ref={tableRef}
          />
       </Container>
    );

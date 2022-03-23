@@ -1,11 +1,14 @@
 /* eslint-disable react/no-array-index-key */
-import React, { forwardRef } from "react";
+import React, { forwardRef, useCallback, useImperativeHandle, useRef, useState } from "react";
 
 // Types
 import IColumnsTable from "./types/IColumnsTable";
 import IDataTable from "./types/IDataTable";
 
 import { Container, WrapperTable, TH, TD, ErroDiv, SubTitle } from "./styles";
+import Pagination from "./Pagination";
+import TablePaginationProps from "./types/Pagination";
+import PagableTypes from "./types/PagableTypes";
 
 interface TableProps {
    loading?: boolean;
@@ -14,6 +17,7 @@ interface TableProps {
    columns: Array<IColumnsTable>;
    data: Array<IDataTable>;
    subTitle?: string;
+   requestPaginationData?: TablePaginationProps;
 }
 
 type RefProps = {
@@ -21,20 +25,28 @@ type RefProps = {
 };
 
 export const Table = forwardRef<RefProps, TableProps>(
-   ({ loading, columns, data, subTitle }) => {
+   ({ loading, columns, data, subTitle, requestPaginationData, showPagination }, ref,) => {
+      const [pageable, setPageable] = useState<PagableTypes | undefined>();
       const getRowByColumn = (rowObject: any, columnKey: string) => {
          return rowObject[columnKey].component;
       };
 
-      //   const handleChangePage = useCallback(
-      //     (newPagination: PagableTypes) => {
-      //       if (setPageable) {
-      //         setPageable(newPagination);
-      //       }
-      //     },
-      //     // eslint-disable-next-line react-hooks/exhaustive-deps
-      //     [setPageable],
-      //   );
+        const handleChangePage = useCallback(
+          (newPagination: PagableTypes) => {
+            if (setPageable) {
+              setPageable(newPagination);
+            }
+          },
+          // eslint-disable-next-line react-hooks/exhaustive-deps
+          [setPageable],
+        );
+
+        const paginationRef = useRef<React.ElementRef<typeof Pagination>>(null);
+    useImperativeHandle(ref, () => ({
+      clearPagination() {
+        paginationRef.current?.clearPagination();
+      },
+    }));
 
       return (
          <>
@@ -84,13 +96,13 @@ export const Table = forwardRef<RefProps, TableProps>(
                      )}
                   </WrapperTable>
                </>
-               {/* {showPagination && (
+               {showPagination && (
              <Pagination
                data={requestPaginationData}
                onChange={handleChangePage}
                ref={paginationRef}
              />
-           )} */}
+           )}
             </Container>
          </>
       );
