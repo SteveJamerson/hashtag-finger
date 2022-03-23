@@ -1,24 +1,27 @@
 import React, { useEffect, useState } from "react";
-import { useAuth } from '../../hooks/useAuth'
-import { useToast } from "../../hooks/useToast";
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
 
-import image from '../../assets/about-ilustration.svg'
-import linkedin from '../../assets/icon-awesome-linkedin.svg'
-import email from '../../assets/icon-envelope.svg'
-import github from '../../assets/icon-github.svg'
+import image from "../../assets/about-ilustration.svg";
 import { Button, Text } from "../../components/atoms";
-import { Header } from "../../components/molecules";
+import { Card as CardText, Footer, Header } from "../../components/molecules";
+import { useAuth } from "../../hooks/useAuth";
+import { useToast } from "../../hooks/useToast";
 import { CardResponse } from "./interfaces";
-import { Card, Container, ContainerBottom, ContainerCard, ContainerCardIcons, ContainerCardPhoto, ContainerCardSubTitle, ContainerCardText, ContainerText, Containertop, Image, SubTitle, TextContent, Title } from "./style"
+import {
+   Container,
+   ContainerBottom,
+   ContainerCard,
+   ContainerText,
+   Containertop,
+   Image,
+   SubTitle,
+   TextContent,
+   Title,
+} from "./style";
 
 const About: React.FC = () => {
-   const { signOut } = useAuth()
-   const { addToast } = useToast()
-   const navigate = useNavigate();
-
-   const [aboutText, setAboutText] = useState('')
-   const [timeResponse, setTimeResponse] = useState<CardResponse[]>([])
+   const [aboutText, setAboutText] = useState("");
+   const [timeResponse, setTimeResponse] = useState<CardResponse[]>([]);
    const loadAbout = async () => {
       const environmentAbout = {
          PATH: "https://api.airtable.com/v0",
@@ -32,13 +35,17 @@ const About: React.FC = () => {
          Authorization: environmentAbout.AUTH,
          "Content-Type": "application/json",
       });
-      const response = await fetch(`${url}&filterByFormula=%7BSquad%7D%20=%20'${environmentAbout.SQUAD}'`, {
-         headers: headers,
-      })
-      const data = await response.json()
+      const response = await fetch(
+         `${url}&filterByFormula=%7BSquad%7D%20=%20'${environmentAbout.SQUAD}'`,
+         {
+            headers: headers,
+         }
+      );
+      const data = await response.json();
       /* console.log(data) */
-      setAboutText(data.records[0].fields.Sobre)
-   }
+      setAboutText(data.records[0].fields.Sobre);
+   };
+
    const loadCard = async () => {
       const environmentCard = {
          PATH: "https://api.airtable.com/v0",
@@ -52,42 +59,23 @@ const About: React.FC = () => {
          Authorization: environmentCard.AUTH,
          "Content-Type": "application/json",
       });
-      const response = await fetch(`${url}&filterByFormula=%7BSquad%7D%20=%20'${environmentCard.SQUAD}'`, {
-         headers: headers,
-      })
-      const data = await response.json()
+      const response = await fetch(
+         `${url}&filterByFormula=%7BSquad%7D%20=%20'${environmentCard.SQUAD}'`,
+         {
+            headers: headers,
+         }
+      );
+      const data = await response.json();
       /* console.log(data) */
 
-
-      console.log(data.records)
-      setTimeResponse(data.records)
-   }
-
-   const navigateToLogin = () => {
-      signOut();
-
-      addToast({
-         title: 'Deslogado com sucesso',
-         type: 'info',
-         description: 'Você foi deslogado para acessar a página de Login'
-      })
-   }
+      console.log(data.records);
+      setTimeResponse(data.records);
+   };
 
    useEffect(() => {
-
-      const user = localStorage.getItem('@Hashtag-Finger.user')
-      if (!user) {
-         addToast({
-            title: 'Usuário não autenticado',
-            type: 'error',
-            description: 'É necessário a autenticação para navegar para a página Sobre'
-         })
-         navigate('/')
-      }
-
       loadAbout();
       loadCard();
-   }, [])
+   }, []);
 
    return (
       <Container>
@@ -112,10 +100,8 @@ const About: React.FC = () => {
          </Header>
          <Containertop>
             <ContainerText>
-               <Title >Sobre o projeto</Title>
-               <TextContent>{aboutText}
-               </TextContent>
-
+               <Title>Sobre o projeto</Title>
+               <TextContent>{aboutText}</TextContent>
             </ContainerText>
             <Image>
                <img src={image} alt="" className="imagem" />
@@ -125,29 +111,26 @@ const About: React.FC = () => {
             <SubTitle>Quem somos</SubTitle>
             <ContainerCard>
                {timeResponse.map((person: CardResponse) => (
-                  <Card key={person?.fields?.Nome}>
-                     <ContainerCardPhoto >
-                        <img src={person?.fields?.Imagem[0]?.url || ''} />
-                     </ ContainerCardPhoto>
-                     <ContainerCardSubTitle>{person?.fields?.Nome}</ContainerCardSubTitle>
-                     <ContainerCardText>{person?.fields?.Descrição}</ContainerCardText>
-                     <ContainerCardIcons>
-                        <a href={person?.fields?.Github} >
-                           <img src={github} alt="" className="github" />
-                        </a>
-                        <a href={person?.fields?.Email}>
-                           <img src={email} alt="" className="email" />
-                        </a>
-                        <a href={person?.fields?.LinkedIn}>
-                           <img src={linkedin} alt="" className="linkedin" />
-                        </a>
-                     </ContainerCardIcons>
-                     <ContainerCard />
-                  </Card>
+                  <CardText
+                     variant="vertical"
+                     title={person.fields.Nome}
+                     text={person.fields.Descrição}
+                     image={person.fields.Imagem[0].url}
+                     link={[
+                        { href: person.fields.Github, icon: "github" },
+                        { href: person.fields.Email, icon: "envelope" },
+                        { href: person.fields.LinkedIn, icon: "linkedin" },
+                     ]}
+                  />
                ))}
             </ContainerCard>
          </ContainerBottom>
-
+         <Footer>
+            <Text>
+               @Cocreare {new Date().getFullYear()}. Todos os direitos
+               reservados
+            </Text>
+         </Footer>
       </Container>
    );
 };
