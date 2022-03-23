@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import Theme from '../../tokens/theme'
 
 export const Container = styled.div`
 position: relative;
@@ -29,11 +30,10 @@ span {
         transform: translateX(-50%);
     }
 
-    @media (max-width: 767px) {
+    @media (max-width: ${Theme.breakPoints.ipad}) {
         font-size: 12px;
         width: 132px;
         background: #ff9000;
-
     }
 
 }

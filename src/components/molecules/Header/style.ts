@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import Theme from '../../tokens/theme';
 
 export const Component = styled.header`
    position: sticky;
@@ -19,7 +20,7 @@ export const Component = styled.header`
       font-size: inherit;
    }
 
-   @media (min-width: 600px) {
+   @media (min-width: ${Theme.breakPoints.mobile}) {
       font-size: 35px;
       padding: 2rem;
    }

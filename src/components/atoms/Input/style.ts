@@ -1,12 +1,13 @@
 import { TextFieldProps } from './interface';
 import styled, { css } from 'styled-components';
+import Theme from '../../tokens/theme';
 
 export const Component = styled.div<{ variant?: string }>`
    position: relative;
    margin-bottom: 1rem;
    color: #72efdb;
 
-   @media (min-width: 767px) {
+   @media (min-width: ${Theme.breakPoints.ipad}) {
       ${(props) =>
       props.variant === 'fill' &&
       css`
@@ -29,7 +30,7 @@ export const Component = styled.div<{ variant?: string }>`
          padding-left: 3.5rem;
       }
 
-      @media (min-width: 767px) {
+      @media (min-width: ${Theme.breakPoints.ipad}) {
          left: 2rem;
          width: 24px;
          height: 24px;
@@ -89,7 +90,7 @@ export const InputComponent = styled.input<TextFieldProps>`
             font-weight: 500;
          }
 
-         @media (min-width: 767px) {
+         @media (min-width: ${Theme.breakPoints.ipad}) {
             height: 75px;
          }
       `}

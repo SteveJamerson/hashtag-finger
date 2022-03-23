@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import Theme from '../../tokens/theme';
 
 export const Container = styled.div`
    width: 530px;
@@ -18,7 +19,7 @@ export const Container = styled.div`
       }
    }
 
-   @media (max-width: 768px) {
+   @media (max-width: ${Theme.breakPoints.ipad}) {
       width: 410px;
    }
 
