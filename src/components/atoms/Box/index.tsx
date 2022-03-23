@@ -10,6 +10,8 @@ export const Box: React.FC<BoxProps> = ({
    margin,
    padding,
    background,
+   height,
+   width,
    children,
    ...props
 }) => {
@@ -21,6 +23,8 @@ export const Box: React.FC<BoxProps> = ({
          radius={radius}
          margin={margin}
          padding={padding}
+         height={height}
+         width={width}
          {...props}
       >
          {children}
