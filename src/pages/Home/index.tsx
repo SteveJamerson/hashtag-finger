@@ -35,30 +35,26 @@ const Home = () => {
    const navigate = useNavigate();
 
    const navigateToLogin = () => {
-      signOut();
 
-      addToast({
-         title: "Deslogado com sucesso",
-         type: "info",
-         description: "Você foi deslogado para acessar a página de Login",
-      });
+      const user = localStorage.getItem("@Hashtag-Finger.user");
+
+      if (user) {
+
+         signOut();
+
+         addToast({
+            title: "Deslogado com sucesso",
+            type: "info",
+            description: "Você foi deslogado para acessar a página de Login",
+         });
+      }
+
+      navigate("/");
    };
 
    const responsiveTabs = 992;
    const [responsiveTab, setResponsiveTab] = useState(!!responsiveTabs);
    useEffect(() => {
-      const user = localStorage.getItem("@Hashtag-Finger.user");
-
-      if (!user) {
-         addToast({
-            title: "Usuário não autenticado",
-            type: "error",
-            description:
-               "É necessário a autenticação para navegar para a página Home",
-         });
-         navigate("/");
-      }
-
       window.onload = () => {
          setResponsiveTab(window.innerWidth > responsiveTabs);
       };
@@ -178,40 +174,40 @@ const Home = () => {
                   <TabImages order={1}>
                      {!loading
                         ? images.map(({ user, media }, i: number) => (
-                             <Card
-                                key={i}
-                                title={user.name}
-                                subtitle={`@${user.username}`}
-                                variant="image"
-                                background={media.url}
-                             />
-                          ))
+                           <Card
+                              key={i}
+                              title={user.name}
+                              subtitle={`@${user.username}`}
+                              variant="image"
+                              background={media.url}
+                           />
+                        ))
                         : [...Array(10).keys()].map((_) => (
-                             <Skeleton height="180px" width="180px" />
-                          ))}
+                           <Skeleton height="180px" width="180px" />
+                        ))}
                   </TabImages>
                   <TabTweets order={0}>
                      {!loading
                         ? tweets.map(({ user, text }, i: number) => (
-                             <Card
-                                key={i}
-                                title={user.name}
-                                subtitle={`@${user.username}`}
-                                text={text}
-                                variant="horizontal"
-                                link={[
-                                   {
-                                      target: "_blank",
-                                      href: `https://twitter.com/search?q=${search}&src=typed_query&f=live`,
-                                      text: "Ver mais no Twitter",
-                                   },
-                                ]}
-                                image={user.profile_image_url}
-                             />
-                          ))
+                           <Card
+                              key={i}
+                              title={user.name}
+                              subtitle={`@${user.username}`}
+                              text={text}
+                              variant="horizontal"
+                              link={[
+                                 {
+                                    target: "_blank",
+                                    href: `https://twitter.com/search?q=${search}&src=typed_query&f=live`,
+                                    text: "Ver mais no Twitter",
+                                 },
+                              ]}
+                              image={user.profile_image_url}
+                           />
+                        ))
                         : [...Array(10).keys()].map((_) => (
-                             <Skeleton height="150px" width="100%" />
-                          ))}
+                           <Skeleton height="150px" width="100%" />
+                        ))}
                   </TabTweets>
                </TabsCustom>
             </Container>

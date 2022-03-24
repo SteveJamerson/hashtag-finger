@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { Form as FormUnform } from '@unform/web'
 import { FormHandles } from '@unform/core'
 import * as Yup from 'yup'
@@ -15,12 +15,19 @@ export const Form: React.FC<IForm> = (...rest) => {
 
    const { signIn } = useAuth()
    const { addToast } = useToast()
+   const [isError, setIsError] = useState(false);
 
    const formRef = useRef<FormHandles>(null)
 
    interface LoginFormData {
       email: string,
       password: string,
+   }
+
+   const checkError = () => {
+      if (isError) {
+         setIsError(false)
+      }
    }
 
    const handleCreateUser = async (data: LoginFormData) => {
@@ -30,8 +37,8 @@ export const Form: React.FC<IForm> = (...rest) => {
          formRef.current?.setErrors({});
 
          const schema = Yup.object().shape({
-            email: Yup.string().required('E-mail obrigatório').email('Digite um e-mail válido'),
-            password: Yup.string().min(6, 'No mínimo 6 digitos')
+            email: Yup.string().required('e-mail obrigatório').email('digite um e-mail válido'),
+            password: Yup.string().min(6, 'senha deve ter mínimo 6 digitos')
          })
 
          await schema.validate(data, {
@@ -43,6 +50,7 @@ export const Form: React.FC<IForm> = (...rest) => {
          const userFound = signIn(email, password)
 
          if (!userFound) {
+            setIsError(true)
             addToast({
                title: 'Erro na autenticação',
                type: 'error',
@@ -63,8 +71,10 @@ export const Form: React.FC<IForm> = (...rest) => {
             addToast({
                title: 'Erro na autenticação',
                type: 'error',
-               description: 'Ocorreu um erro ao tentar fazer login, cheque suas credenciais'
+               description: `Ocorreu um erro ao tentar fazer login, ${err.errors[0]}`
             })
+
+            setIsError(true)
 
             return;
          }
@@ -75,9 +85,9 @@ export const Form: React.FC<IForm> = (...rest) => {
       <Container {...rest}>
          <FormUnform ref={formRef} onSubmit={handleCreateUser}  >
             <Title>Login</Title>
-            <Input label="Usuário" name="email" variant="outline" id="user" type="text" />
-            <Input label="Senha" name="password" variant="outline" id="password" type="password" />
-            <Button variant="secundary" type="submit">Acessar</Button>
+            <Input label="Usuário" name="email" variant="outline" id="user" type="text" onChange={checkError} />
+            <Input label="Senha" name="password" variant="outline" id="password" type="password" onChange={checkError} />
+            <Button variant="secundary" disabled={isError} type="submit">Acessar</Button>
          </FormUnform>
       </Container>
    );

@@ -77,27 +77,21 @@ const About: React.FC = () => {
    };
 
    const navigateToLogin = () => {
-      signOut();
+      const user = localStorage.getItem("@Hashtag-Finger.user");
+      if (user) {
 
-      addToast({
-         title: "Deslogado com sucesso",
-         type: "info",
-         description: "Você foi deslogado para acessar a página de Login",
-      });
+         signOut();
+
+         addToast({
+            title: "Deslogado com sucesso",
+            type: "info",
+            description: "Você foi deslogado para acessar a página de Login",
+         });
+      }
+      navigate("/");
    };
 
    useEffect(() => {
-      const user = localStorage.getItem("@Hashtag-Finger.user");
-      if (!user) {
-         addToast({
-            title: "Usuário não autenticado",
-            type: "error",
-            description:
-               "É necessário a autenticação para navegar para a página Sobre",
-         });
-         navigate("/");
-      }
-
       loadAbout();
       loadCard();
    }, []);

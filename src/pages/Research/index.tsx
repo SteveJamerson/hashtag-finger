@@ -8,7 +8,7 @@ import Records from "../../models/Records";
 import api from "../../services/api";
 import IColumnsTable from "../../components/organism/Table/types/IColumnsTable";
 import IDataTable from "../../components/organism/Table/types/IDataTable";
-import { Table } from "../../components/organism";
+import { Table } from "../../components/organism/Table";
 import { Header } from "../../components/molecules";
 import { Button, Text } from "../../components/atoms";
 import { useAuth } from '../../hooks/useAuth'
@@ -69,10 +69,10 @@ const Research: React.FC<SearchParams> = ({ search }) => {
    }
 
    // Criando referência do componente Paginação
-  const tableRef = useRef<React.ElementRef<typeof Table>>(null);
-  useEffect(() => {
-    tableRef.current?.clearPagination();
-  }, [data]);
+   const tableRef = useRef<React.ElementRef<typeof Table>>(null);
+   useEffect(() => {
+      tableRef.current?.clearPagination();
+   }, [data]);
 
    const getDataTable = async () => {
       const environmentTable = {
@@ -92,7 +92,7 @@ const Research: React.FC<SearchParams> = ({ search }) => {
          const response = await fetch(`${url}`, {
             method: "GET",
             headers: headers,
-          });
+         });
          const data = await response.json();
          setData(data.records);
          console.log('Response Data: ', data.records)
@@ -121,34 +121,34 @@ const Research: React.FC<SearchParams> = ({ search }) => {
 
    useEffect(() => {
       if (data) {
-            const tempData: Array<IDataTable> = [];
-            data.forEach((element: Records) => {
-               if (element.fields.Data) {
-                  const dataString = element.fields.Data.toString();
-                  const formattedData = dataString.substring(0, 2) + "/" + dataString.substring(2, 4);
+         const tempData: Array<IDataTable> = [];
+         data.forEach((element: Records) => {
+            if (element.fields.Data) {
+               const dataString = element.fields.Data.toString();
+               const formattedData = dataString.substring(0, 2) + "/" + dataString.substring(2, 4);
 
-                  const hourToString = element.createdTime.toString();
-                  const formattedHour = hourToString.substring(11, 16);
+               const hourToString = element.createdTime.toString();
+               const formattedHour = hourToString.substring(11, 16);
 
-                  const rowElement: IDataTable = {
-                     item: element,
-                     rows: {
-                        hashtag: {
-                           component: <p>{element.fields.Hashtag ? `#${element.fields.Hashtag}` : '#' }</p>,
-                        },
-                        hour: {
-                           component: <p>{formattedHour ? formattedHour : ''}</p>,
-                        },
-                        date: {
-                           component: <p>{formattedData ? formattedData : ''}</p>,
-                        },
+               const rowElement: IDataTable = {
+                  item: element,
+                  rows: {
+                     hashtag: {
+                        component: <p>{element.fields.Hashtag ? `#${element.fields.Hashtag}` : '#'}</p>,
                      },
-                  };
-                  tempData.push(rowElement);
-               }
-            });
-           setParsedData(tempData);
-         } else {
+                     hour: {
+                        component: <p>{formattedHour ? formattedHour : ''}</p>,
+                     },
+                     date: {
+                        component: <p>{formattedData ? formattedData : ''}</p>,
+                     },
+                  },
+               };
+               tempData.push(rowElement);
+            }
+         });
+         setParsedData(tempData);
+      } else {
          const clearData: Array<IDataTable> = [];
          setParsedData(clearData);
       }
