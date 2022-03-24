@@ -28,7 +28,6 @@ export const Form: React.FC<IForm> = (...rest) => {
       if (isError) {
          setIsError(false)
       }
-      console.log("entrou")
    }
 
    const handleCreateUser = async (data: LoginFormData) => {
