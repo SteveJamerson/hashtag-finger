@@ -14,24 +14,14 @@ const Login: React.FC = () => {
    const { addToast } = useToast()
 
    const onClickHome = () => {
-
-      if (Object.keys(user).length === 0) {
-         addToast({
-            title: 'Usuário não autenticado',
-            type: 'error',
-            description: 'É necessário a autenticação para navegar para a página Home'
-         })
-
-      } else {
-         navigate('/home')
-      }
+      navigate('/home')
    }
 
    useEffect(() => {
       let user = localStorage.getItem('@Hashtag-Finger.user')
 
       if (user) {
-         navigate('/')
+         navigate('/research')
       }
    }, [])
 
