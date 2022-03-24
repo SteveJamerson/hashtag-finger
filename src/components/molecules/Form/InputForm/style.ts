@@ -114,7 +114,7 @@ export const LabelComponent = styled.label<
 
 export const Error = styled(Tooltip)`
 height: 20px;
-margin-left: 94%;
+margin-left: 84%;
 bottom: 32px;
 
 
