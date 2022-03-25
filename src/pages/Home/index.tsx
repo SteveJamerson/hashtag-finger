@@ -22,6 +22,8 @@ import { useToast } from "../../hooks/useToast";
 import { postFind } from "../../services/find";
 import { getTwitter } from "../../services/twitter";
 import { useDebounce } from "../../hooks/useDebounce";
+import { clearCharacter } from "../../utils/clearCharacter";
+import { linkInText } from "../../utils/linkInText";
 
 const Home = () => {
    const [loading, setLoading] = useState(false);
@@ -34,14 +36,11 @@ const Home = () => {
    const { addToast } = useToast();
    const navigate = useNavigate();
 
+   const user = localStorage.getItem("@Hashtag-Finger.user");
+
    const navigateToLogin = () => {
-
-      const user = localStorage.getItem("@Hashtag-Finger.user");
-
       if (user) {
-
          signOut();
-
          addToast({
             title: "Deslogado com sucesso",
             type: "info",
@@ -49,7 +48,7 @@ const Home = () => {
          });
       }
 
-      navigate("/");
+      navigate("/login");
    };
 
    const responsiveTabs = 992;
@@ -94,7 +93,7 @@ const Home = () => {
                return data;
             });
 
-            // postFind(value).then((res) => console.log(res));
+            postFind(value);
 
             setImages(img);
             setTweets(tt);
@@ -106,9 +105,6 @@ const Home = () => {
    return (
       <>
          <Header component="nav">
-            <Text component="h2" style={{ margin: 0 }}>
-               hashtag<b>finder</b>
-            </Text>
             <div>
                <Button
                   iconName="info"
@@ -119,13 +115,13 @@ const Home = () => {
                   SOBRE
                </Button>
                <Button
-                  iconName="user"
+                  iconName={user ? "power" : "user"}
                   iconPosition="start"
                   iconSize={10}
                   color="secondary"
                   onClick={navigateToLogin}
                >
-                  LOGIN
+                  {user ? "SAIR" : "LOGIN"}
                </Button>
             </div>
          </Header>
@@ -174,40 +170,42 @@ const Home = () => {
                   <TabImages order={1}>
                      {!loading
                         ? images.map(({ user, media }, i: number) => (
-                           <Card
-                              key={i}
-                              title={user.name}
-                              subtitle={`@${user.username}`}
-                              variant="image"
-                              background={media.url}
-                           />
-                        ))
+                             <Card
+                                key={i}
+                                title={user.name}
+                                subtitle={`@${user.username}`}
+                                variant="image"
+                                background={media.url}
+                             />
+                          ))
                         : [...Array(10).keys()].map((_) => (
-                           <Skeleton height="180px" width="180px" />
-                        ))}
+                             <Skeleton height="180px" width="180px" />
+                          ))}
                   </TabImages>
                   <TabTweets order={0}>
                      {!loading
-                        ? tweets.map(({ user, text }, i: number) => (
-                           <Card
-                              key={i}
-                              title={user.name}
-                              subtitle={`@${user.username}`}
-                              text={text}
-                              variant="horizontal"
-                              link={[
-                                 {
-                                    target: "_blank",
-                                    href: `https://twitter.com/search?q=${search}&src=typed_query&f=live`,
-                                    text: "Ver mais no Twitter",
-                                 },
-                              ]}
-                              image={user.profile_image_url}
-                           />
-                        ))
+                        ? tweets.map(({ user, text, id }, i: number) => (
+                             <Card
+                                key={i}
+                                title={user.name}
+                                subtitle={`@${user.username}`}
+                                text={linkInText(text)}
+                                variant="horizontal"
+                                link={[
+                                   {
+                                      target: "_blank",
+                                      href: `https://twitter.com/${clearCharacter(
+                                         user.username
+                                      )}/status/${id}`,
+                                      text: "Ver mais no Twitter",
+                                   },
+                                ]}
+                                image={user.profile_image_url}
+                             />
+                          ))
                         : [...Array(10).keys()].map((_) => (
-                           <Skeleton height="150px" width="100%" />
-                        ))}
+                             <Skeleton height="150px" width="100%" />
+                          ))}
                   </TabTweets>
                </TabsCustom>
             </Container>

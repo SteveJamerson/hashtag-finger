@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
 
 import { Container } from "./styles";
 
@@ -11,11 +11,11 @@ import IDataTable from "../../components/organism/Table/types/IDataTable";
 import { Table } from "../../components/organism/Table";
 import { Header } from "../../components/molecules";
 import { Button, Text } from "../../components/atoms";
-import { useAuth } from '../../hooks/useAuth'
-import { useToast } from '../../hooks/useToast'
+import { useAuth } from "../../hooks/useAuth";
+import { useToast } from "../../hooks/useToast";
 
 // Mock
-import dataMock from './dataMock';
+import dataMock from "./dataMock";
 import TablePaginationProps from "../../components/organism/Table/types/Pagination";
 
 const columns: Array<IColumnsTable> = [
@@ -30,14 +30,14 @@ const columns: Array<IColumnsTable> = [
       value: "Data",
       align: "center",
       size: "M",
-      color: 'blue'
+      color: "blue",
    },
    {
       key: "hour",
       value: "Hora",
       align: "center",
       size: "M",
-      color: 'blue'
+      color: "blue",
    },
 ];
 
@@ -50,23 +50,23 @@ const Research: React.FC<SearchParams> = ({ search }) => {
    const [data, setData] = useState<Array<Records> | undefined>();
    const [parsedData, setParsedData] = useState<Array<IDataTable>>([]);
 
-   const { signOut } = useAuth()
-   const { addToast } = useToast()
+   const { signOut } = useAuth();
+   const { addToast } = useToast();
    const navigate = useNavigate();
 
    const navigateToLogin = () => {
       signOut();
 
       addToast({
-         title: 'Deslogado com sucesso',
-         type: 'info',
-         description: 'Você foi deslogado para acessar a página de Login'
-      })
-   }
+         title: "Deslogado com sucesso",
+         type: "info",
+         description: "Você foi deslogado para acessar a página de Login",
+      });
+   };
 
    const navigateToAbout = () => {
-      navigate('/about');
-   }
+      navigate("/about");
+   };
 
    // Criando referência do componente Paginação
    const tableRef = useRef<React.ElementRef<typeof Table>>(null);
@@ -95,26 +95,25 @@ const Research: React.FC<SearchParams> = ({ search }) => {
          });
          const data = await response.json();
          setData(data.records);
-         console.log('Response Data: ', data.records)
+         console.log("Response Data: ", data.records);
          setLoaded(false);
       } catch (err) {
-         console.log('Error')
+         console.log("Error");
          setData(undefined);
          setLoaded(false);
       }
    };
 
+   let user = localStorage.getItem("@Hashtag-Finger.user");
    useEffect(() => {
-
-      const user = localStorage.getItem('@Hashtag-Finger.user')
-
       if (!user) {
          addToast({
-            title: 'Usuário não autenticado',
-            type: 'error',
-            description: 'É necessário a autenticação para navegar para a página Busca'
-         })
-         navigate('/')
+            title: "Usuário não autenticado",
+            type: "error",
+            description:
+               "É necessário a autenticação para navegar para a página Busca",
+         });
+         navigate("/");
       }
       getDataTable();
    }, []);
@@ -125,7 +124,8 @@ const Research: React.FC<SearchParams> = ({ search }) => {
          data.forEach((element: Records) => {
             if (element.fields.Data) {
                const dataString = element.fields.Data.toString();
-               const formattedData = dataString.substring(0, 2) + "/" + dataString.substring(2, 4);
+               const formattedData =
+                  dataString.substring(0, 2) + "/" + dataString.substring(2, 4);
 
                const hourToString = element.createdTime.toString();
                const formattedHour = hourToString.substring(11, 16);
@@ -134,13 +134,19 @@ const Research: React.FC<SearchParams> = ({ search }) => {
                   item: element,
                   rows: {
                      hashtag: {
-                        component: <p>{element.fields.Hashtag ? `#${element.fields.Hashtag}` : '#'}</p>,
+                        component: (
+                           <p>
+                              {element.fields.Hashtag
+                                 ? `#${element.fields.Hashtag}`
+                                 : "#"}
+                           </p>
+                        ),
                      },
                      hour: {
-                        component: <p>{formattedHour ? formattedHour : ''}</p>,
+                        component: <p>{formattedHour ? formattedHour : ""}</p>,
                      },
                      date: {
-                        component: <p>{formattedData ? formattedData : ''}</p>,
+                        component: <p>{formattedData ? formattedData : ""}</p>,
                      },
                   },
                };
@@ -157,21 +163,23 @@ const Research: React.FC<SearchParams> = ({ search }) => {
    return (
       <Container>
          <Header component="nav">
-            <Text component="h2" style={{ margin: 0 }}>
-               hashtag<b>finder</b>
-            </Text>
             <div>
-               <Button iconName="info" iconPosition="start" iconSize={10} onClick={navigateToAbout}>
+               <Button
+                  iconName="info"
+                  iconPosition="start"
+                  iconSize={10}
+                  onClick={() => navigate("/about")}
+               >
                   SOBRE
                </Button>
                <Button
-                  iconName="user"
+                  iconName={user ? "power" : "user"}
                   iconPosition="start"
                   iconSize={10}
                   color="secondary"
                   onClick={navigateToLogin}
                >
-                  LOGIN
+                  {user ? "SAIR" : "LOGIN"}
                </Button>
             </div>
          </Header>

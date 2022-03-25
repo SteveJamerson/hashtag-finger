@@ -86,5 +86,14 @@ export default createGlobalStyle`
     a {
         --size: var(--font-size-body);
         font-size: var(--size);
+        color: inherit;
+    }
+    [data-rmiz-modal-content] {
+       display: flex;
+       width: auto!important;
+    }
+
+    [data-rmiz-overlay] {
+       overflow: auto;
     }
 `;

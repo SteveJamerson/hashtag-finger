@@ -5,6 +5,7 @@ import { ReactComponent as Search } from '../../../assets/icons/search.svg';
 import { ReactComponent as Envelope } from '../../../assets/icons/envelope.svg';
 import { ReactComponent as Github } from '../../../assets/icons/github.svg';
 import { ReactComponent as Linkedin } from '../../../assets/icons/linkedin.svg';
+import { ReactComponent as Power } from '../../../assets/icons/power.svg';
 
 const IconsTypes = {
    info: Info,
@@ -14,6 +15,7 @@ const IconsTypes = {
    envelope: Envelope,
    github: Github,
    linkedin: Linkedin,
+   power: Power,
 };
 
 export default IconsTypes;
@@ -25,4 +27,5 @@ export type IconName =
    | 'search'
    | 'envelope'
    | 'github'
-   | 'linkedin';
+   | 'linkedin'
+   | 'power';

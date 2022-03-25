@@ -3,10 +3,13 @@ import Theme from '../../tokens/theme';
 import { CardProps } from './interface';
 
 export const CardComponent = styled.div<CardProps>`
+   position: relative;
    padding: 20px;
+   overflow: hidden;
 
    * {
       margin: 0;
+      z-index: 1;
    }
 
    ${(props) =>
@@ -183,4 +186,21 @@ export const LinksComponent = styled.div<CardProps>`
          display: flex;
          gap: 1rem;
       `}
+`;
+
+export const BackgroundComponent = styled.div<CardProps>`
+   position: absolute;
+   inset: 0;
+   z-index: 0;
+
+   * {
+      height: 100%;
+      width: 100%;
+   }
+
+   img {
+      object-fit: cover;
+      object-position: center;
+      z-index: 0;
+   }
 `;
