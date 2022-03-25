@@ -195,7 +195,7 @@ const Home = () => {
                                    {
                                       target: "_blank",
                                       href: `https://twitter.com/${clearCharacter(
-                                         user.name
+                                         user.username
                                       )}/status/${id}`,
                                       text: "Ver mais no Twitter",
                                    },
