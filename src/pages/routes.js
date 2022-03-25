@@ -11,10 +11,10 @@ export default function Routing() {
       <AuthProvider>
          <ToastProvider>
             <Routes>
-               <Route path="/home" element={<Home />} />
+               <Route path="/" element={<Home />} />
                <Route path="/about" element={<About />} />
                <Route path="/research" element={<Research />} />
-               <Route path="/" element={<Login />} />
+               <Route path="/login" element={<Login />} />
             </Routes>
          </ToastProvider>
       </AuthProvider>

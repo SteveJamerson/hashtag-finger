@@ -34,12 +34,11 @@ const Home = () => {
    const { addToast } = useToast();
    const navigate = useNavigate();
 
-   const navigateToLogin = () => {
-      const user = localStorage.getItem("@Hashtag-Finger.user");
+   const user = localStorage.getItem("@Hashtag-Finger.user");
 
+   const navigateToLogin = () => {
       if (user) {
          signOut();
-
          addToast({
             title: "Deslogado com sucesso",
             type: "info",
@@ -47,7 +46,7 @@ const Home = () => {
          });
       }
 
-      navigate("/");
+      navigate("/login");
    };
 
    const responsiveTabs = 992;
@@ -92,7 +91,7 @@ const Home = () => {
                return data;
             });
 
-            // postFind(value).then((res) => console.log(res));
+            postFind(value);
 
             setImages(img);
             setTweets(tt);
@@ -104,9 +103,6 @@ const Home = () => {
    return (
       <>
          <Header component="nav">
-            <Text component="h2" style={{ margin: 0 }}>
-               hashtag<b>finder</b>
-            </Text>
             <div>
                <Button
                   iconName="info"
@@ -117,13 +113,13 @@ const Home = () => {
                   SOBRE
                </Button>
                <Button
-                  iconName="user"
+                  iconName={user ? "power" : "user"}
                   iconPosition="start"
                   iconSize={10}
                   color="secondary"
                   onClick={navigateToLogin}
                >
-                  LOGIN
+                  {user ? "SAIR" : "LOGIN"}
                </Button>
             </div>
          </Header>

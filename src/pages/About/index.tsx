@@ -76,10 +76,10 @@ const About: React.FC = () => {
       setTimeResponse(data.records);
    };
 
-   const navigateToLogin = () => {
-      const user = localStorage.getItem("@Hashtag-Finger.user");
-      if (user) {
+   const user = localStorage.getItem("@Hashtag-Finger.user");
 
+   const navigateToLogin = () => {
+      if (user) {
          signOut();
 
          addToast({
@@ -88,7 +88,7 @@ const About: React.FC = () => {
             description: "Você foi deslogado para acessar a página de Login",
          });
       }
-      navigate("/");
+      navigate("/login");
    };
 
    useEffect(() => {
@@ -99,26 +99,23 @@ const About: React.FC = () => {
    return (
       <Container>
          <Header component="nav">
-            <Text component="h2" style={{ margin: 0 }}>
-               hashtag<b>finder</b>
-            </Text>
             <div>
                <Button
                   iconName="info"
                   iconPosition="start"
                   iconSize={10}
-                  onClick={() => navigate("/")}
+                  onClick={() => navigate("/about")}
                >
                   SOBRE
                </Button>
                <Button
-                  iconName="user"
+                  iconName={user ? "power" : "user"}
                   iconPosition="start"
                   iconSize={10}
                   color="secondary"
                   onClick={navigateToLogin}
                >
-                  LOGIN
+                  {user ? "SAIR" : "LOGIN"}
                </Button>
             </div>
          </Header>
