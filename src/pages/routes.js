@@ -11,7 +11,7 @@ export default function Routing() {
       <AuthProvider>
          <ToastProvider>
             <Routes>
-               <Route path="/" element={<Home />} />
+               <Route exact path="/" element={<Home />} />
                <Route path="/about" element={<About />} />
                <Route path="/research" element={<Research />} />
                <Route path="/login" element={<Login />} />

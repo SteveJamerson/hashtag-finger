@@ -69,7 +69,7 @@ export const AuthProvider = (props: AuthContextProps) => {
    const signOut = () => {
       localStorage.removeItem('@Hashtag-Finger.user');
       setUser({} as IUsers)
-      navigate('/')
+      navigate('/login')
    }
 
    useEffect(() => {

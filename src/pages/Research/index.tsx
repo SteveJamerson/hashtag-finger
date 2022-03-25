@@ -113,7 +113,7 @@ const Research: React.FC<SearchParams> = ({ search }) => {
             description:
                "É necessário a autenticação para navegar para a página Busca",
          });
-         navigate("/");
+         navigate("/login");
       }
       getDataTable();
    }, []);
