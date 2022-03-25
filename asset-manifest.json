@@ -1,6 +1,7 @@
 {
   "files": {
-    "main.js": "/hashtag-finger/static/js/main.cc27911e.js",
+    "main.css": "/hashtag-finger/static/css/main.2d442709.css",
+    "main.js": "/hashtag-finger/static/js/main.3a3d1aa8.js",
     "static/js/787.dadafd9f.chunk.js": "/hashtag-finger/static/js/787.dadafd9f.chunk.js",
     "static/media/mobile-hero-bg.png": "/hashtag-finger/static/media/mobile-hero-bg.a7a60454fb14b50d3b39.png",
     "static/media/hero-bg.png": "/hashtag-finger/static/media/hero-bg.6db2c5834bbebae604d9.png",
@@ -8,18 +9,24 @@
     "static/media/about-hero-bg.jpg": "/hashtag-finger/static/media/about-hero-bg.6e1da22ba412a8f5dc98.jpg",
     "static/media/table-bg.jpg": "/hashtag-finger/static/media/table-bg.487eb9906537771da798.jpg",
     "static/media/about-ilustration.svg": "/hashtag-finger/static/media/about-ilustration.4ee1648457bb33273bc8a3e738b9c49b.svg",
+    "static/media/see_more.svg": "/hashtag-finger/static/media/see_more.9d9b5aabff049e442dc1a53b1b61b7e8.svg",
     "static/media/github.svg": "/hashtag-finger/static/media/github.ef97f50f142db0a4d98ad157ee6d42d7.svg",
     "index.html": "/hashtag-finger/index.html",
+    "static/media/power.svg": "/hashtag-finger/static/media/power.e1cdd04caeda5777406e9cd702c6b234.svg",
     "static/media/home.svg": "/hashtag-finger/static/media/home.c17709bc92147e2049c97219c6e18dae.svg",
     "static/media/linkedin.svg": "/hashtag-finger/static/media/linkedin.958e02041da1ff7e8985a82b74418f84.svg",
     "static/media/search.svg": "/hashtag-finger/static/media/search.ef21a5ef59b9a937c6a19e1c0f199602.svg",
     "static/media/info.svg": "/hashtag-finger/static/media/info.ae87f5d38791566c38449ef469319338.svg",
     "static/media/envelope.svg": "/hashtag-finger/static/media/envelope.ed75e1503dd6291fce651730eaf1b364.svg",
+    "static/media/ArrowLeft.svg": "/hashtag-finger/static/media/ArrowLeft.cb1bbbc2f7bf215e3e5fc9c03ca6ed31.svg",
+    "static/media/ArrowRight.svg": "/hashtag-finger/static/media/ArrowRight.c9e74a75ceae0c313553fd7c29555d89.svg",
     "static/media/user.svg": "/hashtag-finger/static/media/user.a3efe7339d68bc1d08a962728e03e904.svg",
-    "main.cc27911e.js.map": "/hashtag-finger/static/js/main.cc27911e.js.map",
+    "main.2d442709.css.map": "/hashtag-finger/static/css/main.2d442709.css.map",
+    "main.3a3d1aa8.js.map": "/hashtag-finger/static/js/main.3a3d1aa8.js.map",
     "787.dadafd9f.chunk.js.map": "/hashtag-finger/static/js/787.dadafd9f.chunk.js.map"
   },
   "entrypoints": [
-    "static/js/main.cc27911e.js"
+    "static/css/main.2d442709.css",
+    "static/js/main.3a3d1aa8.js"
   ]
 }
