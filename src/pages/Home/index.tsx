@@ -23,6 +23,7 @@ import { postFind } from "../../services/find";
 import { getTwitter } from "../../services/twitter";
 import { useDebounce } from "../../hooks/useDebounce";
 import { clearCharacter } from "../../utils/clearCharacter";
+import { linkInText } from "../../utils/linkInText";
 
 const Home = () => {
    const [loading, setLoading] = useState(false);
@@ -188,7 +189,7 @@ const Home = () => {
                                 key={i}
                                 title={user.name}
                                 subtitle={`@${user.username}`}
-                                text={text}
+                                text={linkInText(text)}
                                 variant="horizontal"
                                 link={[
                                    {

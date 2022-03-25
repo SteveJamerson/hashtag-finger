@@ -47,7 +47,10 @@ export const Card: React.FC<CardProps> = ({
          )}
          {text && (
             <TextComponent variant={variant}>
-               <Text aria-label="text">{text}</Text>
+               <Text
+                  aria-label="text"
+                  dangerouslySetInnerHTML={{ __html: text }}
+               />
             </TextComponent>
          )}
          {link && (
