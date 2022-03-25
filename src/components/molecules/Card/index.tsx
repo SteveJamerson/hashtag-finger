@@ -3,6 +3,9 @@ import { Icon, Text } from "../../atoms";
 import { IconName } from "../../atoms/Icon/types";
 import { CardProps } from "./interface";
 
+import Zoom from "react-medium-image-zoom";
+import "react-medium-image-zoom/dist/styles.css";
+
 import {
    CardComponent,
    ImageComponent,
@@ -10,6 +13,7 @@ import {
    SubtitleComponent,
    TextComponent,
    TitleComponent,
+   BackgroundComponent,
 } from "./style";
 
 export const Card: React.FC<CardProps> = ({
@@ -23,10 +27,12 @@ export const Card: React.FC<CardProps> = ({
    ...props
 }) => {
    return (
-      <CardComponent background={background} variant={variant} {...props}>
+      <CardComponent variant={variant} {...props}>
          {image && (
             <ImageComponent variant={variant}>
-               <img loading="lazy" src={image} alt="" />
+               <Zoom zoomMargin={30}>
+                  <img loading="lazy" src={image} alt="" />
+               </Zoom>
             </ImageComponent>
          )}
          {title && (
@@ -56,6 +62,18 @@ export const Card: React.FC<CardProps> = ({
                   );
                })}
             </LinksComponent>
+         )}
+
+         {background && (
+            <BackgroundComponent variant={variant}>
+               <Zoom
+                  zoomMargin={40}
+                  overlayBgColorStart="#00236B60"
+                  overlayBgColorEnd="#00236B60"
+               >
+                  <img loading="lazy" src={background} alt="" />
+               </Zoom>
+            </BackgroundComponent>
          )}
       </CardComponent>
    );
