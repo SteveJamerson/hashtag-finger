@@ -138,9 +138,21 @@ const About: React.FC = () => {
                      text={person.fields.Descrição}
                      image={person.fields.Imagem[0].url}
                      link={[
-                        { href: person.fields.Github, icon: "github" },
-                        { href: person.fields.Email, icon: "envelope" },
-                        { href: person.fields.LinkedIn, icon: "linkedin" },
+                        {
+                           href: person.fields.Github,
+                           icon: "github",
+                           target: "_blank",
+                        },
+                        {
+                           href: person.fields.Email,
+                           icon: "envelope",
+                           target: "_blank",
+                        },
+                        {
+                           href: person.fields.LinkedIn,
+                           icon: "linkedin",
+                           target: "_blank",
+                        },
                      ]}
                   />
                ))}

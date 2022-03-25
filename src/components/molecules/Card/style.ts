@@ -107,6 +107,7 @@ export const TitleComponent = styled.div<CardProps>`
             font-size: 1.75rem;
             font-weight: 600;
             color: #72efdb;
+            text-align: center;
          }
       `}
 `;
