@@ -22,6 +22,7 @@ import { useToast } from "../../hooks/useToast";
 import { postFind } from "../../services/find";
 import { getTwitter } from "../../services/twitter";
 import { useDebounce } from "../../hooks/useDebounce";
+import { clearCharacter } from "../../utils/clearCharacter";
 
 const Home = () => {
    const [loading, setLoading] = useState(false);
@@ -182,7 +183,7 @@ const Home = () => {
                   </TabImages>
                   <TabTweets order={0}>
                      {!loading
-                        ? tweets.map(({ user, text }, i: number) => (
+                        ? tweets.map(({ user, text, id }, i: number) => (
                              <Card
                                 key={i}
                                 title={user.name}
@@ -192,7 +193,9 @@ const Home = () => {
                                 link={[
                                    {
                                       target: "_blank",
-                                      href: `https://twitter.com/search?q=${search}&src=typed_query&f=live`,
+                                      href: `https://twitter.com/${clearCharacter(
+                                         user.name
+                                      )}/status/${id}`,
                                       text: "Ver mais no Twitter",
                                    },
                                 ]}

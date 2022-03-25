@@ -29,7 +29,7 @@ export const getTwitter = async (str: string) => {
          'Content-Type': 'application/x-www-form-urlencoded',
       },
       params: {
-         query: str,
+         query: str + ' -is:retweet',
          max_results: 10,
          expansions: 'author_id',
          sort_order: 'recency',
