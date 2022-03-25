@@ -56,19 +56,25 @@ export const Container = styled.div`
       background-color: ${Theme.colors.tableResultBackground};
       opacity: 0.82;
 
-      thead tr {
-         height: 106px;
-         background-color: ${Theme.colors.darkBlueHeader};
+      thead {
+         position: sticky;
+         top: 0;
+         z-index: 1;
 
-         border-radius: 14px;
+         tr {
+            height: 106px;
+            background-color: ${Theme.colors.darkBlueHeader};
 
-         th:first-child {
-            padding-left: 20px;
-         }
+            border-radius: 14px;
 
-         /* th:last-child {
+            th:first-child {
+               padding-left: 20px;
+            }
+
+            /* th:last-child {
         padding-right: 20px;
       } */
+         }
       }
 
       tbody tr {
@@ -201,8 +207,8 @@ export const TD = styled.td<TDProps>`
 
 export const WrapperTable = styled.div`
    overflow-x: auto;
-
    border-radius: 14px;
+   max-height: 80vh;
 
    &::-webkit-scrollbar {
       width: 3px;

@@ -81,7 +81,7 @@ const Research: React.FC<SearchParams> = ({ search }) => {
          KEY: "app6wQWfM6eJngkD4",
          SQUAD: "zappts_2",
       };
-      const url = `${environmentTable.PATH}/${environmentTable.KEY}/Buscas?pageSize=9&filterByFormula=Squad=2&maxRecords=36&view=Grid%20view`;
+      const url = `${environmentTable.PATH}/${environmentTable.KEY}/Buscas?filterByFormula=Squad=2`;
       const headers = new Headers({
          Authorization: environmentTable.AUTH,
          "Content-Type": "application/json",
