@@ -13,7 +13,7 @@ const Login: React.FC = () => {
    const { addToast } = useToast();
 
    const onClickHome = () => {
-      navigate("/home");
+      navigate("/");
    };
 
    useEffect(() => {
