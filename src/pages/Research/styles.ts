@@ -6,7 +6,7 @@ export const Container = styled.div`
    display: flex;
    flex-direction: column;
    width: 100vw;
-   height: 100vh;
+   min-height: 100vh;
    background: url(${BackGround}) no-repeat;
    background-size: cover;
    align-self: center;
