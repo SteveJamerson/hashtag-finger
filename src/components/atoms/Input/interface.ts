@@ -1,7 +1,8 @@
 import { IconName } from './../Icon/types';
 import { InputHTMLAttributes } from 'react';
 
-export interface TextFieldProps extends InputHTMLAttributes<HTMLInputElement> {
+export interface InputFieldProps
+   extends React.InputHTMLAttributes<HTMLInputElement> {
    variant?: 'outline' | 'fill';
    sizes?: 'small' | 'medium' | 'large';
    type: 'text' | 'number' | 'tel' | 'email' | 'password' | 'search';

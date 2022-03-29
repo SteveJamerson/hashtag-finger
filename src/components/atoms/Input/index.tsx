@@ -1,12 +1,11 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import React, { useCallback, useRef, useState } from "react";
 import { Icon } from "../Icon";
-import { FiAlertCircle } from "react-icons/fi";
 
-import { TextFieldProps } from "./interface";
+import { InputFieldProps } from "./interface";
 import { Component, InputComponent, LabelComponent } from "./style";
-import { useEffect } from "react";
 
-export const Input: React.FC<TextFieldProps> = ({
+export const Input: React.FC<InputFieldProps> = ({
    className,
    variant = "outline",
    sizes = "medium",
@@ -58,5 +57,3 @@ export const Input: React.FC<TextFieldProps> = ({
       </>
    );
 };
-
-export default Input;

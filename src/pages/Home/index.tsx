@@ -20,10 +20,11 @@ import { Footer, Header, Card } from "../../components/molecules";
 import { useAuth } from "../../hooks/useAuth";
 import { useToast } from "../../hooks/useToast";
 import { postFind } from "../../services/find";
-import { getTwitter } from "../../services/twitter";
+import { getImages, getTweets } from "../../services/twitter";
 import { useDebounce } from "../../hooks/useDebounce";
 import { clearCharacter } from "../../utils/clearCharacter";
 import { linkInText } from "../../utils/linkInText";
+import imageNotFound from "../../assets/images/not-found.png";
 
 const Home = () => {
    const [loading, setLoading] = useState(false);
@@ -47,59 +48,71 @@ const Home = () => {
             description: "Você foi deslogado para acessar a página de Login",
          });
       }
-
       navigate("/login");
    };
 
-   const responsiveTabs = 992;
-   const [responsiveTab, setResponsiveTab] = useState(!!responsiveTabs);
+   const pixelBreakTabs = 992;
+   const [pixelBreakTab, setPixelBreakTabs] = useState(!!pixelBreakTabs);
    useEffect(() => {
       window.onload = () => {
-         setResponsiveTab(window.innerWidth > responsiveTabs);
+         setPixelBreakTabs(window.innerWidth > pixelBreakTabs);
       };
       window.onresize = () => {
-         setResponsiveTab(window.innerWidth > responsiveTabs);
+         setPixelBreakTabs(window.innerWidth > pixelBreakTabs);
       };
    });
 
    const handleSearch = useCallback((e: React.FormEvent<HTMLInputElement>) => {
-      e.preventDefault();
       const target = e.target as HTMLInputElement;
-      let { value } = target;
-      value = value.replace(/^#/, "");
+      let value = clearCharacter(target.value || "");
       target.value = value;
+
+      setLoading(value !== "");
+      setImages([]);
+      setTweets([]);
       setSearch(value);
       getSearch(value);
-      setLoading(true);
    }, []);
 
-   const getSearch = useDebounce(async (value: string) => {
+   const getSearch = useDebounce((value: string) => {
       if (value) {
-         await getTwitter(value).then((res) => {
-            const img = res.images.data.data.map((data: any) => {
-               data["user"] = res.images.data.includes.users.find(
-                  (u: any) => u.id === data.author_id
-               );
-               data["media"] = res.images.data.includes.media.find(
-                  (u: any) => u.media_key === data.attachments.media_keys[0]
-               );
-               return data;
+         const _images = getImages(value)
+            .then((response) => {
+               return response.data.data.map((data: any) => {
+                  data["user"] = response.data.includes.users.find(
+                     (u: any) => u.id === data.author_id
+                  );
+                  data["media"] = response.data.includes.media.find(
+                     (u: any) => u.media_key === data.attachments.media_keys[0]
+                  );
+                  return data;
+               });
+            })
+            .then((data) => setImages(data));
+
+         const _tweets = getTweets(value)
+            .then((response) => {
+               return response.data.data.map((data: any) => {
+                  data["user"] = response.data.includes.users.find(
+                     (u: any) => u.id === data.author_id
+                  );
+                  return data;
+               });
+            })
+            .then((data) => setTweets(data));
+
+         Promise.all([_images, _tweets])
+            .catch((e) => {
+               setSearch("");
+               setImages([]);
+               setTweets([]);
+               console.log(e, tweets, images);
+            })
+            .finally(() => {
+               postFind(value);
+               setLoading(false);
             });
-
-            const tt = res.tweets.data.data.map((data: any) => {
-               data["user"] = res.tweets.data.includes.users.find(
-                  (u: any) => u.id === data.author_id
-               );
-               return data;
-            });
-
-            postFind(value);
-
-            setImages(img);
-            setTweets(tt);
-         });
       }
-      setLoading(false);
    }, 2000);
 
    return (
@@ -149,8 +162,9 @@ const Home = () => {
          <TabContainer container="fluid">
             <Container>
                <Text size="1.5rem" align="center" margin="0 0 2rem 0">
-                  {search &&
-                     `Exibindo os 10 resultados mais recentes para #${search}`}
+                  {!search && !(images.length && tweets.length)
+                     ? `Nenhum resultado encontrado`
+                     : `Exibindo os 10 resultados mais recentes para #${search}`}
                </Text>
                <TabsCustom
                   active={0}
@@ -165,7 +179,7 @@ const Home = () => {
                         order: 0,
                      },
                   ]}
-                  responsive={responsiveTab}
+                  responsive={pixelBreakTab}
                >
                   <TabImages order={1}>
                      {!loading
@@ -175,7 +189,11 @@ const Home = () => {
                                 title={user.name}
                                 subtitle={`@${user.username}`}
                                 variant="image"
-                                background={media.url}
+                                background={
+                                   media.url ||
+                                   media.preview_image_url ||
+                                   imageNotFound
+                                }
                              />
                           ))
                         : [...Array(10).keys()].map((_) => (
