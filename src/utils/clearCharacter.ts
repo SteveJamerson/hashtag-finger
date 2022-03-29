@@ -1,3 +1,3 @@
 export const clearCharacter = (str: string) => {
-   return str.normalize('NFD').replace(/[^a-zA-Z0-9s]/g, '');
+   return str.normalize('NFD').replace(/[\u0300-\u036f]|\W/g, '');
 };
