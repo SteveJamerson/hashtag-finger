@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
    Button,
@@ -76,8 +76,6 @@ const Home = () => {
 
    const getSearch = useDebounce((value: string) => {
       if (value) {
-         postFind(value);
-
          const _images = getImages(value)
             .then((response) => {
                return response.data.data.map((data: any) => {
@@ -111,6 +109,7 @@ const Home = () => {
                console.log(e, tweets, images);
             })
             .finally(() => {
+               postFind(value);
                setLoading(false);
             });
       }
