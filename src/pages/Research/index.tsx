@@ -3,20 +3,15 @@ import { useNavigate } from "react-router-dom";
 
 import { Container } from "./styles";
 
-import Results from "../../models/Results";
 import Records from "../../models/Records";
-import api from "../../services/api";
 import IColumnsTable from "../../components/organism/Table/types/IColumnsTable";
 import IDataTable from "../../components/organism/Table/types/IDataTable";
 import { Table } from "../../components/organism/Table";
 import { Header } from "../../components/molecules";
-import { Button, Text } from "../../components/atoms";
+import { Button } from "../../components/atoms";
 import { useAuth } from "../../hooks/useAuth";
 import { useToast } from "../../hooks/useToast";
-
-// Mock
-import dataMock from "./dataMock";
-import TablePaginationProps from "../../components/organism/Table/types/Pagination";
+import { environment } from "../../environment";
 
 const columns: Array<IColumnsTable> = [
    {
@@ -45,6 +40,8 @@ interface SearchParams {
    search: string;
 }
 
+const { ENDPOINT_AIRTABLE, AUTH_AIRTABLE, KEY_AIRTABLE } = environment;
+
 const Research: React.FC<SearchParams> = ({ search }) => {
    const [loaded, setLoaded] = useState(false);
    const [data, setData] = useState<Array<Records> | undefined>();
@@ -64,10 +61,6 @@ const Research: React.FC<SearchParams> = ({ search }) => {
       });
    };
 
-   const navigateToAbout = () => {
-      navigate("/about");
-   };
-
    // Criando referência do componente Paginação
    const tableRef = useRef<React.ElementRef<typeof Table>>(null);
    useEffect(() => {
@@ -75,33 +68,45 @@ const Research: React.FC<SearchParams> = ({ search }) => {
    }, [data]);
 
    const getDataTable = async () => {
-      const environmentTable = {
-         PATH: "https://api.airtable.com/v0",
-         AUTH: "Bearer key2CwkHb0CKumjuM",
-         KEY: "app6wQWfM6eJngkD4",
-         SQUAD: "zappts_2",
-      };
-      const url = `${environmentTable.PATH}/${environmentTable.KEY}/Buscas?filterByFormula=Squad=2`;
+      setLoaded(true);
+
+      const url = `${ENDPOINT_AIRTABLE}/${KEY_AIRTABLE}/Buscas?filterByFormula=Squad=2`;
       const headers = new Headers({
-         Authorization: environmentTable.AUTH,
+         Authorization: AUTH_AIRTABLE,
          "Content-Type": "application/json",
       });
 
-      try {
-         setLoaded(true);
-         const response = await fetch(`${url}`, {
-            method: "GET",
-            headers: headers,
+      await fetch(`${url}`, {
+         method: "GET",
+         headers: headers,
+      })
+         .then((response) => response.json())
+         .then((data) => {
+            return data.records.sort((a: Records, b: Records) => {
+               if (
+                  new Date(b.createdTime).getTime() >
+                  new Date(a.createdTime).getTime()
+               ) {
+                  return 1;
+               }
+               if (
+                  new Date(b.createdTime).getTime() <
+                  new Date(a.createdTime).getTime()
+               ) {
+                  return -1;
+               }
+               return 0;
+            });
+         })
+         .then((data) => {
+            setData(data);
+            setLoaded(false);
+         })
+         .catch((err) => {
+            console.log("Error");
+            setData(undefined);
+            setLoaded(false);
          });
-         const data = await response.json();
-         setData(data.records);
-         console.log("Response Data: ", data.records);
-         setLoaded(false);
-      } catch (err) {
-         console.log("Error");
-         setData(undefined);
-         setLoaded(false);
-      }
    };
 
    let user = localStorage.getItem("@Hashtag-Finger.user");
@@ -123,12 +128,9 @@ const Research: React.FC<SearchParams> = ({ search }) => {
          const tempData: Array<IDataTable> = [];
          data.forEach((element: Records) => {
             if (element.fields.Data) {
-               const dataString = element.fields.Data.toString();
-               const formattedData =
-                  dataString.substring(0, 2) + "/" + dataString.substring(2, 4);
-
-               const hourToString = element.createdTime.toString();
-               const formattedHour = hourToString.substring(11, 16);
+               const [date, hour] = new Date(element.createdTime)
+                  .toLocaleString()
+                  .split(" ");
 
                const rowElement: IDataTable = {
                   item: element,
@@ -143,10 +145,10 @@ const Research: React.FC<SearchParams> = ({ search }) => {
                         ),
                      },
                      hour: {
-                        component: <p>{formattedHour ? formattedHour : ""}</p>,
+                        component: <p>{hour ? hour.slice(0, 5) : ""}</p>,
                      },
                      date: {
-                        component: <p>{formattedData ? formattedData : ""}</p>,
+                        component: <p>{date ? date : ""}</p>,
                      },
                   },
                };
