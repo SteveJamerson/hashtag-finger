@@ -68,27 +68,45 @@ const Research: React.FC<SearchParams> = ({ search }) => {
    }, [data]);
 
    const getDataTable = async () => {
+      setLoaded(true);
+
       const url = `${ENDPOINT_AIRTABLE}/${KEY_AIRTABLE}/Buscas?filterByFormula=Squad=2`;
       const headers = new Headers({
          Authorization: AUTH_AIRTABLE,
          "Content-Type": "application/json",
       });
 
-      try {
-         setLoaded(true);
-         const response = await fetch(`${url}`, {
-            method: "GET",
-            headers: headers,
+      await fetch(`${url}`, {
+         method: "GET",
+         headers: headers,
+      })
+         .then((response) => response.json())
+         .then((data) => {
+            return data.records.sort((a: Records, b: Records) => {
+               if (
+                  new Date(b.createdTime).getTime() >
+                  new Date(a.createdTime).getTime()
+               ) {
+                  return 1;
+               }
+               if (
+                  new Date(b.createdTime).getTime() <
+                  new Date(a.createdTime).getTime()
+               ) {
+                  return -1;
+               }
+               return 0;
+            });
+         })
+         .then((data) => {
+            setData(data);
+            setLoaded(false);
+         })
+         .catch((err) => {
+            console.log("Error");
+            setData(undefined);
+            setLoaded(false);
          });
-         const data = await response.json();
-         setData(data.records);
-         console.log("Response Data: ", data.records);
-         setLoaded(false);
-      } catch (err) {
-         console.log("Error");
-         setData(undefined);
-         setLoaded(false);
-      }
    };
 
    let user = localStorage.getItem("@Hashtag-Finger.user");
@@ -110,12 +128,9 @@ const Research: React.FC<SearchParams> = ({ search }) => {
          const tempData: Array<IDataTable> = [];
          data.forEach((element: Records) => {
             if (element.fields.Data) {
-               const dataString = element.fields.Data.toString();
-               const formattedData =
-                  dataString.substring(0, 2) + "/" + dataString.substring(2, 4);
-
-               const hourToString = element.createdTime.toString();
-               const formattedHour = hourToString.substring(11, 16);
+               const [date, hour] = new Date(element.createdTime)
+                  .toLocaleString()
+                  .split(" ");
 
                const rowElement: IDataTable = {
                   item: element,
@@ -130,10 +145,10 @@ const Research: React.FC<SearchParams> = ({ search }) => {
                         ),
                      },
                      hour: {
-                        component: <p>{formattedHour ? formattedHour : ""}</p>,
+                        component: <p>{hour ? hour.slice(0, 5) : ""}</p>,
                      },
                      date: {
-                        component: <p>{formattedData ? formattedData : ""}</p>,
+                        component: <p>{date ? date : ""}</p>,
                      },
                   },
                };
