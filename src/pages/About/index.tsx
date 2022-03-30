@@ -39,15 +39,21 @@ const About: React.FC = () => {
          Authorization: environmentAbout.AUTH,
          "Content-Type": "application/json",
       });
-      const response = await fetch(
+      await fetch(
          `${url}&filterByFormula=%7BSquad%7D%20=%20'${environmentAbout.SQUAD}'`,
          {
             headers: headers,
          }
-      );
-      const data = await response.json();
-      /* console.log(data) */
-      setAboutText(data.records[0].fields.Sobre);
+      )
+         .then((response) => response.json())
+         .then((data) => setAboutText(data.records[0].fields.Sobre))
+         .catch((error) => {
+            addToast({
+               title: "Desculpa volte mais tarde",
+               type: "error",
+               description: "Não foi possível retornar o texto",
+            });
+         });
    };
 
    const loadCard = async () => {
@@ -63,17 +69,25 @@ const About: React.FC = () => {
          Authorization: environmentCard.AUTH,
          "Content-Type": "application/json",
       });
-      const response = await fetch(
+      await fetch(
          `${url}&filterByFormula=%7BSquad%7D%20=%20'${environmentCard.SQUAD}'`,
          {
             headers: headers,
          }
-      );
-      const data = await response.json();
-      /* console.log(data) */
-
-      console.log(data.records);
-      setTimeResponse(data.records);
+      )
+         .then((response) => {
+            if (response.ok) {
+               return response.json();
+            }
+         })
+         .then((data) => setTimeResponse(data.records))
+         .catch((error) => {
+            addToast({
+               title: "Desculpa volte mais tarde",
+               type: "error",
+               description: "Não foi possível carregar os cards",
+            });
+         });
    };
 
    const user = localStorage.getItem("@Hashtag-Finger.user");
@@ -131,7 +145,7 @@ const About: React.FC = () => {
          <ContainerBottom>
             <SubTitle>Quem somos</SubTitle>
             <ContainerCard>
-               {timeResponse.map((person: CardResponse) => (
+               {timeResponse?.map((person: CardResponse) => (
                   <CardText
                      variant="vertical"
                      title={person.fields.Nome}
