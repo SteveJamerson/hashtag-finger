@@ -3,20 +3,15 @@ import { useNavigate } from "react-router-dom";
 
 import { Container } from "./styles";
 
-import Results from "../../models/Results";
 import Records from "../../models/Records";
-import api from "../../services/api";
 import IColumnsTable from "../../components/organism/Table/types/IColumnsTable";
 import IDataTable from "../../components/organism/Table/types/IDataTable";
 import { Table } from "../../components/organism/Table";
 import { Header } from "../../components/molecules";
-import { Button, Text } from "../../components/atoms";
+import { Button } from "../../components/atoms";
 import { useAuth } from "../../hooks/useAuth";
 import { useToast } from "../../hooks/useToast";
-
-// Mock
-import dataMock from "./dataMock";
-import TablePaginationProps from "../../components/organism/Table/types/Pagination";
+import { environment } from "../../environment";
 
 const columns: Array<IColumnsTable> = [
    {
@@ -45,6 +40,8 @@ interface SearchParams {
    search: string;
 }
 
+const { ENDPOINT_AIRTABLE, AUTH_AIRTABLE, KEY_AIRTABLE } = environment;
+
 const Research: React.FC<SearchParams> = ({ search }) => {
    const [loaded, setLoaded] = useState(false);
    const [data, setData] = useState<Array<Records> | undefined>();
@@ -64,10 +61,6 @@ const Research: React.FC<SearchParams> = ({ search }) => {
       });
    };
 
-   const navigateToAbout = () => {
-      navigate("/about");
-   };
-
    // Criando referência do componente Paginação
    const tableRef = useRef<React.ElementRef<typeof Table>>(null);
    useEffect(() => {
@@ -75,15 +68,9 @@ const Research: React.FC<SearchParams> = ({ search }) => {
    }, [data]);
 
    const getDataTable = async () => {
-      const environmentTable = {
-         PATH: "https://api.airtable.com/v0",
-         AUTH: "Bearer key2CwkHb0CKumjuM",
-         KEY: "app6wQWfM6eJngkD4",
-         SQUAD: "zappts_2",
-      };
-      const url = `${environmentTable.PATH}/${environmentTable.KEY}/Buscas?filterByFormula=Squad=2`;
+      const url = `${ENDPOINT_AIRTABLE}/${KEY_AIRTABLE}/Buscas?filterByFormula=Squad=2`;
       const headers = new Headers({
-         Authorization: environmentTable.AUTH,
+         Authorization: AUTH_AIRTABLE,
          "Content-Type": "application/json",
       });
 

@@ -18,6 +18,10 @@ import {
    TextContent,
    Title,
 } from "./style";
+import { environment } from "../../environment";
+
+const { ENDPOINT_AIRTABLE, AUTH_AIRTABLE, KEY_AIRTABLE, SQUAD_AIRTABLE } =
+   environment;
 
 const About: React.FC = () => {
    const { signOut } = useAuth();
@@ -27,20 +31,13 @@ const About: React.FC = () => {
    const [aboutText, setAboutText] = useState("");
    const [timeResponse, setTimeResponse] = useState<CardResponse[]>([]);
    const loadAbout = async () => {
-      const environmentAbout = {
-         PATH: "https://api.airtable.com/v0",
-         AUTH: "Bearer key2CwkHb0CKumjuM",
-         KEY: "app6wQWfM6eJngkD4",
-         SQUAD: "zappts_2",
-      };
-
-      const url = `${environmentAbout.PATH}/${environmentAbout.KEY}/Projeto?maxRecords=3&view=Grid%20view`;
+      const url = `${ENDPOINT_AIRTABLE}/${KEY_AIRTABLE}/Projeto?maxRecords=3&view=Grid%20view`;
       const headers = new Headers({
-         Authorization: environmentAbout.AUTH,
+         Authorization: AUTH_AIRTABLE,
          "Content-Type": "application/json",
       });
       await fetch(
-         `${url}&filterByFormula=%7BSquad%7D%20=%20'${environmentAbout.SQUAD}'`,
+         `${url}&filterByFormula=%7BSquad%7D%20=%20'${SQUAD_AIRTABLE}'`,
          {
             headers: headers,
          }
@@ -57,20 +54,13 @@ const About: React.FC = () => {
    };
 
    const loadCard = async () => {
-      const environmentCard = {
-         PATH: "https://api.airtable.com/v0",
-         AUTH: "Bearer key2CwkHb0CKumjuM",
-         KEY: "app6wQWfM6eJngkD4",
-         SQUAD: "zappts_2",
-      };
-
-      const url = `${environmentCard.PATH}/${environmentCard.KEY}/Equipe?view=Grid%20view`;
+      const url = `${ENDPOINT_AIRTABLE}/${KEY_AIRTABLE}/Equipe?view=Grid%20view`;
       const headers = new Headers({
-         Authorization: environmentCard.AUTH,
+         Authorization: AUTH_AIRTABLE,
          "Content-Type": "application/json",
       });
       await fetch(
-         `${url}&filterByFormula=%7BSquad%7D%20=%20'${environmentCard.SQUAD}'`,
+         `${url}&filterByFormula=%7BSquad%7D%20=%20'${SQUAD_AIRTABLE}'`,
          {
             headers: headers,
          }
