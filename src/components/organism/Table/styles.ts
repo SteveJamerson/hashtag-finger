@@ -208,19 +208,22 @@ export const TD = styled.td<TDProps>`
 export const WrapperTable = styled.div`
    overflow-x: auto;
    border-radius: 14px;
-   max-height: 80vh;
+   max-height: 60vh;
 
    &::-webkit-scrollbar {
-      width: 3px;
+      width: 5px;
       height: 8px;
-      border: 1px solid #d5d5d5;
-      background: #dad7d7;
+      background: ${Theme.colors.tableResultBackground};
+      border-radius: 20px;
+   }
+   ::-webkit-scrollbar {
+      height: 5px;
+      width: 5px;
    }
 
    &::-webkit-scrollbar-thumb {
-      border-radius: 10px;
-      background: #bac0c4;
-      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+      border-radius: 20px;
+      background: ${Theme.colors.textLightBlue};
    }
 `;
 

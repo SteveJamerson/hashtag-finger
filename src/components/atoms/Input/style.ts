@@ -1,15 +1,15 @@
-import { TextFieldProps } from './interface';
+import { InputFieldProps } from './interface';
 import styled, { css } from 'styled-components';
 
-export const Component = styled.div<{ variant?: string }>`
+export const Component = styled.div<any>`
    position: relative;
    margin-bottom: 1rem;
    color: #72efdb;
 
    @media (min-width: 767px) {
       ${(props) =>
-      props.variant === 'fill' &&
-      css`
+         props.variant === 'fill' &&
+         css`
             max-width: 1000px;
             width: 100%;
             margin: auto;
@@ -46,7 +46,7 @@ export const Component = styled.div<{ variant?: string }>`
    }
 `;
 
-export const InputComponent = styled.input<TextFieldProps>`
+export const InputComponent = styled.input<InputFieldProps>`
    display: block;
    width: 100%;
    font-weight: 400;
@@ -65,7 +65,7 @@ export const InputComponent = styled.input<TextFieldProps>`
          color: #72efdb;
          transition: 0.5s;
          transform-origin: left;
-         
+
          & + label {
             left: 0.5rem;
             font-size: 16px;
@@ -97,7 +97,7 @@ export const InputComponent = styled.input<TextFieldProps>`
 `;
 export const LabelComponent = styled.label<
    HTMLLabelElement | { focused: boolean }
-   >`
+>`
    position: absolute;
    top: 0;
    left: 0;
